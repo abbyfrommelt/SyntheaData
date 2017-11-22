@@ -40,7 +40,6 @@
       "allow": {
         "condition_type": "And",
         "conditions": [
-
           {
             "condition_type": "Age",
             "operator": ">=",
