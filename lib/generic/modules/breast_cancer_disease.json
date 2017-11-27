@@ -3,7 +3,8 @@
   "remarks": [
     "Data for this module was obtained from the following sources:",
     "1. BRCA1/2 population prevalence data: https://www.ncbi.nlm.nih.gov/pubmed/11044354",
-    "2. BRCA1/2 lifetime cancer risk data: https://www.cancer.gov/types/breast/hp/breast-ovarian-genetics-pdq#link/_3110_cap"
+    "2. BRCA1/2 lifetime cancer risk data: https://www.cancer.gov/types/breast/hp/breast-ovarian-genetics-pdq#link/_3110_cap",
+    "3. Untreated breast cancer survival data: https://www.ncbi.nlm.nih.gov/pubmed/10797344"
   ],
 
   "states": {
@@ -538,7 +539,15 @@
     },
 
     "Cancer_start": {
-      "type": "Simple",
+      "type": "ConditionOnset",
+      "target_encounter": "breast_cancer_diagnosis_encounter",
+      "codes": [
+        {
+          "system": "SNOMED-CT",
+          "code": "254837009",
+          "display": "Malignant neoplasm of breast (disorder)"
+        }
+      ],
       "distributed_transition": [
         {
           "distribution": 0.5,
@@ -555,13 +564,43 @@
       "type": "SetAttribute",
       "attribute": "Cancer_left_breast",
       "value": true,
-      "direct_transition": "Terminal"
+      "direct_transition": "No_treatment_delay"
     },
 
     "Cancer_start_right_breast": {
       "type": "SetAttribute",
       "attribute": "Cancer_right_breast",
       "value": true,
+      "direct_transition": "No_treatment_delay"
+    },
+
+    "No_treatment_death_probability": {
+      "type": "Simple",
+      "distributed_transition": [
+        {
+          "distribution": 0.0167,
+          "transition": "Death",
+          "remarks": "0.2 (~20%) death chance every year from untreated Breast Cancer, /12 months"
+        },
+        {
+          "distribution": 0.9833,
+          "transition": "No_treatment_delay"
+        }
+      ]
+    },
+
+    "No_treatment_delay": {
+      "type": "Delay",
+      "exact": {
+        "unit": "months",
+        "quantity": 1
+      },
+      "direct_transition": "No_treatment_death_probability"
+    },
+
+    "Death": {
+      "type": "Death",
+      "condition_onset": "Cancer_start",
       "direct_transition": "Terminal"
     },
 
@@ -571,7 +610,20 @@
         "unit": "years",
         "quantity": 1
       },
-      "direct_transition": "Chance_of_breast_cancer"
+      "conditional_transition": [
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": ">",
+            "quantity": 80,
+            "unit": "years"
+          },
+          "transition": "Terminal"
+        },
+        {
+          "transition": "Chance_of_breast_cancer"
+        }
+      ]
     },
 
     "Terminal": {

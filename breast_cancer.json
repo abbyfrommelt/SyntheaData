@@ -66,9 +66,20 @@
         },
         {
           "condition": {
-            "condition_type": "PriorState",
-            "name": "BiennialMammogram",
-            "within": { "quantity": 2, "unit": "years"}
+            "condition_type": "Or",
+            "conditions": [
+              {
+                "condition_type": "PriorState",
+                "name": "BiennialMammogram",
+                "within": { "quantity": 2, "unit": "years"}
+              },
+              {
+                "condition_type": "Age",
+                "operator": "<",
+                "quantity": 40,
+                "unit": "years"
+              }
+            ]
           },
           "transition": "EncounterEndNoDiagnosis"
         },
