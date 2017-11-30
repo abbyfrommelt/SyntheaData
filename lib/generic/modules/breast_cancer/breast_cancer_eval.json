@@ -467,9 +467,7 @@
     },
 
     "Cancer_start": {
-      "type": "SetAttribute",
-      "attribute": "Breast_cancer_diagnosis",
-      "value": true,
+      "type": "Simple",
       "distributed_transition": [
         {
           "distribution": 0.5,
@@ -484,15 +482,15 @@
 
     "Cancer_start_left_breast": {
       "type": "SetAttribute",
-      "attribute": "Cancer_left_breast",
-      "value": true,
+      "attribute": "Breast_cancer_present",
+      "value": "left",
       "direct_transition": "Terminal"
     },
 
     "Cancer_start_right_breast": {
       "type": "SetAttribute",
-      "attribute": "Cancer_right_breast",
-      "value": true,
+      "attribute": "Breast_cancer_present",
+      "value": "right",
       "direct_transition": "Terminal"
     },
     

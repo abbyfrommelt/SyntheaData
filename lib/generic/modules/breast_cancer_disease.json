@@ -36,7 +36,7 @@
         {
           "condition": {
             "condition_type": "Attribute",
-            "attribute": "Breast_cancer_diagnosis",
+            "attribute": "Breast_cancer_present",
             "operator": "is nil"
           },
           "transition": "No_cancer_delay"
@@ -44,12 +44,28 @@
         {
           "condition": {
             "condition_type": "Attribute",
-            "attribute": "Breast_cancer_diagnosis",
+            "attribute": "Breast_cancer_present",
             "operator": "is not nil"
           },
           "transition": "No_treatment_delay"
         }
       ]
+    },
+
+    "No_treatment_counter": {
+      "type": "Counter",
+      "attribute": "Breast_cancer_months_since_diagnosis",
+      "action": "increment",
+      "direct_transition": "No_treatment_delay"
+    },
+
+    "No_treatment_delay": {
+      "type": "Delay",
+      "exact": {
+        "unit": "months",
+        "quantity": 1
+      },
+      "direct_transition": "No_treatment_death_probability"
     },
 
     "No_treatment_death_probability": {
@@ -62,18 +78,9 @@
         },
         {
           "distribution": 0.9833,
-          "transition": "No_treatment_delay"
+          "transition": "No_treatment_counter"
         }
       ]
-    },
-
-    "No_treatment_delay": {
-      "type": "Delay",
-      "exact": {
-        "unit": "months",
-        "quantity": 1
-      },
-      "direct_transition": "No_treatment_death_probability"
     },
 
     "Death": {
