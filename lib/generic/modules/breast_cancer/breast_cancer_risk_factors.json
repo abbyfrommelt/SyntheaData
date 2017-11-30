@@ -1,0 +1,74 @@
+{
+	"name": "Breast Cancer Risk Factors",
+	"remarks": [
+		"This submodule randomly assigns risk factors for breast cancer"
+	],
+	"states": {
+		"Initial": {
+			"type": "Initial",
+			"direct_transition": "BRCA1_pathogenicity_distribution"
+		},
+
+		"BRCA1_pathogenicity_distribution": {
+			"type": "Simple",
+			"distributed_transition": [
+				{
+					"distribution": 0.0009,
+					"transition": "BRCA1_pathogenic_attr",
+					"remarks": "0.09% chance in general population of a BRCA1 pathogenic variant"
+				},
+				{
+					"distribution": 0.9991,
+					"transition": "BRCA1_non_pathogenic_attr"
+				}
+			]
+		},
+
+		"BRCA1_pathogenic_attr": {
+			"type": "SetAttribute",
+			"attribute": "BRCA1_pathogenic_variant",
+			"value": true,
+			"direct_transition": "BRCA2_pathogenicity_distribution"
+		},
+
+		"BRCA1_non_pathogenic_attr": {
+			"type": "SetAttribute",
+			"attribute": "BRCA1_pathogenic_variant",
+			"value": false,
+			"direct_transition": "BRCA2_pathogenicity_distribution"
+		},
+
+		"BRCA2_pathogenicity_distribution": {
+			"type": "Simple",
+			"distributed_transition": [
+				{
+					"distribution": 0.0022,
+					"transition": "BRCA2_pathogenic_attr",
+					"remarks": "0.22% chance in general population of a BRCA2 pathogenic variant"
+				},
+				{
+					"distribution": 0.9978,
+					"transition": "BRCA2_non_pathogenic_attr"
+				}
+			]
+		},
+
+		"BRCA2_pathogenic_attr": {
+			"type": "SetAttribute",
+			"attribute": "BRCA2_pathogenic_variant",
+			"value": true,
+			"direct_transition": "Terminal"
+		},
+
+		"BRCA2_non_pathogenic_attr": {
+			"type": "SetAttribute",
+			"attribute": "BRCA2_pathogenic_variant",
+			"value": false,
+			"direct_transition": "Terminal"
+		},
+
+		"Terminal": {
+			"type": "Terminal"
+		}
+	}
+}
