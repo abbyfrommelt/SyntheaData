@@ -85,6 +85,13 @@
 
     "Death": {
       "type": "Death",
+      "codes": [
+        {
+          "system": "SNOMED-CT",
+          "code": "254837009",
+          "display": "Malignant neoplasm of breast (disorder)"
+        }
+      ],
       "direct_transition": "Terminal"
     },
 
