@@ -1,0 +1,331 @@
+{
+  "name": "Breast Cancer Mammography",
+  "remarks": [
+    "Data for this module was obtained from the following sources:",
+    "1. Mammography statistics: http://www.bcsc-research.org/statistics/performance/screening/index.html",
+    "2. Mammography followup statistics: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3151253/"
+  ],
+  "states": {
+    "Initial": {
+      "type": "Initial",
+      "direct_transition": "MammogramEncounterSelect"
+    },
+
+    "MammogramEncounterSelect": {
+      "type": "Simple",
+      "complex_transition": [
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": ">",
+            "quantity": 74,
+            "unit": "years"
+          },
+          "transition": "Terminal"
+        },
+        {
+          "condition": {
+            "condition_type": "Or",
+            "conditions": [
+              {
+                "condition_type": "PriorState",
+                "name": "MammogramEncounterSelect",
+                "within": { "quantity": 2, "unit": "years"}
+              },
+              {
+                "condition_type": "Age",
+                "operator": "<",
+                "quantity": 40,
+                "unit": "years"
+              }
+            ]
+          },
+          "transition": "Terminal"
+        },
+        {
+          "distributions": [
+            {
+              "distribution": 0.65,
+              "transition": "BiennialMammogramEncounter"
+            },
+            {
+              "distribution": 0.35,
+              "transition": "Terminal"
+            }
+          ]
+        }
+      ]
+    },
+
+    "BiennialMammogramEncounter" : {
+      "type": "Encounter",
+      "wellness": "false",
+      "encounter_class": "ambulatory",
+      "codes": [
+        {
+          "system": "SNOMED-CT",
+          "code": "50849002",
+          "display": "Provider-initiated encounter"
+        }
+      ],
+      "direct_transition": "MammogramProcedure"
+    },
+
+    "MammogramProcedure": {
+      "type": "Procedure",
+      "target_encounter": "BiennialMammogramEncounter",
+      "duration" : { "low" : 20, "high" : 30, "unit" : "minutes" },
+      "codes": [
+        {
+          "system": "SNOMED-CT",
+          "code": "24623002",
+          "display": "Screening Mammography (procedure)"
+        }
+      ],
+      "complex_transition": [
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": ">=",
+            "quantity": 40,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.875,
+              "transition": "EncounterEndNoDiagnosis"
+            },
+            {
+              "distribution": 0.125,
+              "transition": "EncounterEndFollowup"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": ">=",
+            "quantity": 45,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.882,
+              "transition": "EncounterEndNoDiagnosis"
+            },
+            {
+              "distribution": 0.118,
+              "transition": "EncounterEndFollowup"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": ">=",
+            "quantity": 50,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.9,
+              "transition": "EncounterEndNoDiagnosis"
+            },
+            {
+              "distribution": 0.1,
+              "transition": "EncounterEndFollowup"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": ">=",
+            "quantity": 55,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.914,
+              "transition": "EncounterEndNoDiagnosis"
+            },
+            {
+              "distribution": 0.086,
+              "transition": "EncounterEndFollowup"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": ">=",
+            "quantity": 60,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.918,
+              "transition": "EncounterEndNoDiagnosis"
+            },
+            {
+              "distribution": 0.082,
+              "transition": "EncounterEndFollowup"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": ">=",
+            "quantity": 65,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.922,
+              "transition": "EncounterEndNoDiagnosis"
+            },
+            {
+              "distribution": 0.078,
+              "transition": "EncounterEndFollowup"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": ">=",
+            "quantity": 70,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.929,
+              "transition": "EncounterEndNoDiagnosis"
+            },
+            {
+              "distribution": 0.071,
+              "transition": "EncounterEndFollowup"
+            }
+          ]
+        }
+      ]
+    },
+
+    "EncounterEndFollowup": {
+      "type": "EncounterEnd",
+      "distributed_transition": [
+        {
+          "distribution": 0.233,
+          "transition": "ScreeningMammogramFollowupWithin7Days"
+        },
+        {
+          "distribution": 0.363,
+          "transition": "ScreeningMammogramFollowup8to14Days"
+        },
+        {
+          "distribution": 0.22,
+          "transition": "ScreeningMammogramFollowup15to21Days"
+        },
+        {
+          "distribution": 0.183,
+          "transition": "ScreeningMammogramFollowup22to180Days"
+        }
+      ],
+      "remarks": ["followup statistics: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3151253/"]
+    },
+
+    "ScreeningMammogramFollowupWithin7Days": {
+      "type": "Delay",
+      "range": {
+        "low": 0,
+        "high": 7,
+        "unit": "days"
+      },
+      "direct_transition": "DiagnosticMammogramEncounter"
+    },
+
+    "ScreeningMammogramFollowup8to14Days": {
+      "type": "Delay",
+      "range": {
+        "low": 8,
+        "high": 14,
+        "unit": "days"
+      },
+      "direct_transition": "DiagnosticMammogramEncounter"
+    },
+
+    "ScreeningMammogramFollowup15to21Days": {
+      "type": "Delay",
+      "range": {
+        "low": 15,
+        "high": 21,
+        "unit": "days"
+      },
+      "direct_transition": "DiagnosticMammogramEncounter"
+    },
+
+    "ScreeningMammogramFollowup22to180Days": {
+      "type": "Delay",
+      "range": {
+        "low": 22,
+        "high": 180,
+        "unit": "days"
+      },
+      "direct_transition": "DiagnosticMammogramEncounter"
+    },
+
+    "DiagnosticMammogramEncounter": {
+      "type": "Encounter",
+      "encounter_class": "ambulatory",
+      "reason": "breast_cancer",
+      "duration": { "low": 1, "high": 2, "unit": "hours" },
+      "direct_transition": "DiagnosticMammogramEncounterEnd"
+    },
+
+    "DiagnosticMammogramEncounterEnd": {
+      "type": "EncounterEnd",
+      "direct_transition": "Biopsy_encounter_delay"
+    },
+
+    "Biopsy_encounter_delay": {
+      "type": "Delay",
+      "range": {
+        "low": 2,
+        "high": 28,
+        "unit": "days"
+      },
+      "remarks": [
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC81326/"
+      ],
+      "direct_transition": "Biopsy_encounters"
+    },
+
+    "BreastCancerDiagnosis": {
+      "type": "ConditionOnset",
+      "assign_to_attribute": "breast_cancer",
+      "codes": [
+        {
+          "system": "SNOMED-CT",
+          "code": "254837009",
+          "display": "Malignant neoplasm of breast (disorder)"
+        }
+      ],
+      "direct_transition": "EncounterEndDiagnosis"
+    },
+
+    "EncounterEndNoDiagnosis": {
+      "type": "EncounterEnd",
+      "direct_transition": "Terminal"
+    },
+
+    "EncounterEndDiagnosis": {
+      "type": "EncounterEnd",
+      "direct_transition": "Terminal"
+    },
+
+    "Terminal": {
+      "type": "Terminal"
+    }
+  }
+}
