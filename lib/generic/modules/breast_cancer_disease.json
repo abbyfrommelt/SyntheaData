@@ -32,24 +32,7 @@
     "Chance_of_breast_cancer": {
       "type": "CallSubmodule",
       "submodule": "breast_cancer/breast_cancer_eval",
-      "conditional_transition": [
-        {
-          "condition": {
-            "condition_type": "Attribute",
-            "attribute": "Breast_cancer_present",
-            "operator": "is nil"
-          },
-          "transition": "No_cancer_delay"
-        },
-        {
-          "condition": {
-            "condition_type": "Attribute",
-            "attribute": "Breast_cancer_present",
-            "operator": "is not nil"
-          },
-          "transition": "No_treatment_delay"
-        }
-      ]
+      "direct_transition": "Mammogram_check"
     },
 
     "Mammogram_check": {
@@ -78,7 +61,7 @@
             "attribute": "Breast_cancer_present",
             "operator": "is not nil"
           },
-          "transition": "No_treatment_delay"
+          "transition": "No_diagnosis_delay"
         }
       ]
     },
@@ -89,11 +72,16 @@
       "conditional_transition": [
         {
           "condition": {
-            "condition_type": "Attribute",
-            "attribute": "Breast_cancer_present",
-            "operator": "is nil"
+            "condition_type": "Active Condition",
+            "codes": [
+              {
+                "system": "SNOMED-CT",
+                "code": "254837009",
+                "display": "Malignant neoplasm of breast (disorder)"
+              }
+            ]
           },
-          "transition": "No_cancer_delay"
+          "transition": "Diagnosis_delay"
         },
         {
           "condition": {
@@ -101,28 +89,29 @@
             "attribute": "Breast_cancer_present",
             "operator": "is not nil"
           },
-          "transition": "No_treatment_delay"
+          "transition": "No_diagnosis_delay"
+        },
+        {
+          "condition": {
+            "condition_type": "Attribute",
+            "attribute": "Breast_cancer_present",
+            "operator": "is nil"
+          },
+          "transition": "No_cancer_delay"
         }
       ]
     },
 
-    "No_treatment_counter": {
-      "type": "Counter",
-      "attribute": "Breast_cancer_months_since_diagnosis",
-      "action": "increment",
-      "direct_transition": "Mammogram_check"
-    },
-
-    "No_treatment_delay": {
+    "Diagnosis_delay": {
       "type": "Delay",
       "exact": {
         "unit": "months",
         "quantity": 1
       },
-      "direct_transition": "No_treatment_death_probability"
+      "direct_transition": "Diagnosis_death_probability"
     },
 
-    "No_treatment_death_probability": {
+    "Diagnosis_death_probability": {
       "type": "Simple",
       "distributed_transition": [
         {
@@ -132,7 +121,45 @@
         },
         {
           "distribution": 0.9833,
-          "transition": "No_treatment_counter"
+          "transition": "Diagnosis_counter"
+        }
+      ]
+    },
+
+    "Diagnosis_counter": {
+      "type": "Counter",
+      "attribute": "Breast_cancer_months_since_diagnosis",
+      "action": "increment",
+      "direct_transition": "Diagnosis_delay"
+    },
+
+    "No_diagnosis_counter": {
+      "type": "Counter",
+      "attribute": "Breast_cancer_months_since_onset",
+      "action": "increment",
+      "direct_transition": "Mammogram_check"
+    },
+
+    "No_diagnosis_delay": {
+      "type": "Delay",
+      "exact": {
+        "unit": "months",
+        "quantity": 1
+      },
+      "direct_transition": "No_diagnosis_death_probability"
+    },
+
+    "No_diagnosis_death_probability": {
+      "type": "Simple",
+      "distributed_transition": [
+        {
+          "distribution": 0.0167,
+          "transition": "Death",
+          "remarks": "0.2 (~20%) death chance every year from untreated Breast Cancer, /12 months"
+        },
+        {
+          "distribution": 0.9833,
+          "transition": "No_diagnosis_counter"
         }
       ]
     },
@@ -166,7 +193,7 @@
           "transition": "Terminal"
         },
         {
-          "transition": "Mammogram_check"
+          "transition": "Chance_of_breast_cancer"
         }
       ]
     },

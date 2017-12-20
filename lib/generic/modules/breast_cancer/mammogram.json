@@ -59,7 +59,6 @@
 
     "BiennialMammogramEncounter" : {
       "type": "Encounter",
-      "wellness": "false",
       "encounter_class": "ambulatory",
       "codes": [
         {
@@ -279,7 +278,77 @@
       "type": "Encounter",
       "encounter_class": "ambulatory",
       "reason": "breast_cancer",
+      "codes": [
+        {
+          "system": "SNOMED-CT",
+          "code": "50849002",
+          "display": "Provider-initiated encounter"
+        }
+      ],
+      "complex_transition": [
+        {
+          "condition": {
+            "condition_type": "Attribute",
+            "attribute": "Breast_cancer_present",
+            "operator": "==",
+            "value": "left"
+          },
+          "transition": "DiagnosticMammogramLeftBreastProcedure"
+        },
+        {
+          "condition": {
+            "condition_type": "Attribute",
+            "attribute": "Breast_cancer_present",
+            "operator": "==",
+            "value": "right"
+          },
+          "transition": "DiagnosticMammogramRightBreastProcedure"
+        },
+        {
+          "condition": {
+            "condition_type": "Attribute",
+            "attribute": "Breast_cancer_present",
+            "operator": "is nil"
+          },
+          "distributions": [
+            {
+              "distribution": 0.5,
+              "transition": "DiagnosticMammogramLeftBreastProcedure"
+            },
+            {
+              "distribution": 0.5,
+              "transition": "DiagnosticMammogramRightBreastProcedure"
+            }
+          ]
+        }
+      ]
+    },
+
+    "DiagnosticMammogramLeftBreastProcedure": {
+      "type": "Procedure",
+      "reason": "breast_cancer",
       "duration": { "low": 1, "high": 2, "unit": "hours" },
+      "codes": [
+        {
+          "system": "SNOMED-CT",
+          "code": "572701000119102",
+          "display": "Mammography of left breast (procedure)"
+        }
+      ],
+      "direct_transition": "DiagnosticMammogramEncounterEnd"
+    },
+
+    "DiagnosticMammogramRightBreastProcedure": {
+      "type": "Procedure",
+      "reason": "breast_cancer",
+      "duration": { "low": 1, "high": 2, "unit": "hours" },
+      "codes": [
+        {
+          "system": "SNOMED-CT",
+          "code": "566571000119105",
+          "display": "Mammography of right breast (procedure)"
+        }
+      ],
       "direct_transition": "DiagnosticMammogramEncounterEnd"
     },
 
@@ -296,9 +365,40 @@
         "unit": "days"
       },
       "remarks": [
-        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC81326/"
+        "biopsy delays from https://www.ncbi.nlm.nih.gov/pmc/articles/PMC81326/"
       ],
-      "direct_transition": "Biopsy_encounters"
+      "direct_transition": "Biopsy_encounter"
+    },
+
+    "Biopsy_encounter": {
+      "type": "Encounter",
+      "encounter_class": "ambulatory",
+      "reason": "breast_cancer",
+      "codes": [
+        {
+          "system": "SNOMED-CT",
+          "code": "165121006",
+          "display": "Nonsurgical biopsy done (situation)"
+        }
+      ],
+      "direct_transition": "Biopsy_procedure"
+    },
+
+    "Biopsy_procedure": {
+      "type": "Procedure",
+      "reason": "breast_cancer",
+      "codes": [
+        {
+          "system": "SNOMED-CT",
+          "code": "122548005",
+          "display": "Biopsy of breast (procedure)"
+        }
+      ],
+      "duration": { "low": 20, "high": 60, "unit": "minutes" },
+      "remarks": [
+        "Biopsy lengths taken from https://www.insideradiology.com.au/breast-core-biopsy/"
+      ],
+      "direct_transition": "BreastCancerDiagnosis"
     },
 
     "BreastCancerDiagnosis": {
