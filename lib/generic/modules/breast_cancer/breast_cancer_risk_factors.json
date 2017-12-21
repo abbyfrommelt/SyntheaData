@@ -1,7 +1,10 @@
 {
 	"name": "Breast Cancer Risk Factors",
 	"remarks": [
-		"This submodule randomly assigns risk factors for breast cancer"
+		"This submodule randomly assigns risk factors for breast cancer",
+		"Data for this submodule was obtained from the following sources: ",
+		"1. BRCA1/2 population prevalence data: https://www.ncbi.nlm.nih.gov/pubmed/11044354",
+    "2. BRCA1/2 lifetime cancer risk data: https://www.cancer.gov/types/breast/hp/breast-ovarian-genetics-pdq#link/_3110_cap"
 	],
 	"states": {
 		"Initial": {

@@ -1,0 +1,82 @@
+{
+  "name": "Breast Cancer Diagnosis and Treatment",
+  "remarks": [
+    "Data for this module was obtained from the following sources:",
+    "Untreated breast cancer survival data: https://www.ncbi.nlm.nih.gov/pubmed/10797344"
+  ],
+  "states": {
+    "Initial": {
+      "type": "Initial",
+      "direct_transition": "Breast_cancer_risk_submodule"
+    },
+
+    "Breast_cancer_risk_submodule": {
+      "type": "CallSubmodule",
+      "submodule": "breast_cancer/breast_cancer_risk_factors",
+      "direct_transition": "Age_Guard"
+    },
+
+    "Age_Guard": {
+      "type" : "Guard",
+      "allow" : {
+        "condition_type": "Age",
+        "operator": ">=",
+        "quantity": 40,
+        "unit": "years"
+      },
+      "direct_transition": "Mammogram_module"
+    },
+
+    "Mammogram_module": {
+      "type": "CallSubmodule",
+      "submodule": "breast_cancer/mammogram",
+      "conditional_transition": [
+        {
+          "condition": {
+            "condition_type": "Active Condition",
+            "codes": [
+              {
+                "system": "SNOMED-CT",
+                "code": "254837009",
+                "display": "Malignant neoplasm of breast (disorder)"
+              }
+            ]
+          },
+          "transition": "Diagnosis_delay"
+        },
+        {
+          "transition": "No_diagnosis_delay"
+        }
+      ]
+    },
+
+    "Diagnosis_delay": {
+      "type": "Delay",
+      "exact": {
+        "unit": "months",
+        "quantity": 1
+      },
+      "direct_transition": "Diagnosis_counter"
+    },
+
+    "Diagnosis_counter": {
+      "type": "Counter",
+      "attribute": "Breast_cancer_months_since_diagnosis",
+      "action": "increment",
+      "direct_transition": "Diagnosis_delay"
+    },
+
+    "No_diagnosis_delay": {
+      "type": "Delay",
+      "exact": {
+        "unit": "months",
+        "quantity": 6
+      },
+      "direct_transition": "Mammogram_module"
+    },
+
+    "Terminal": {
+      "type": "Terminal"
+    }
+  }
+}

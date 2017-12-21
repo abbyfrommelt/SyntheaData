@@ -32,21 +32,7 @@
     "Chance_of_breast_cancer": {
       "type": "CallSubmodule",
       "submodule": "breast_cancer/breast_cancer_eval",
-      "direct_transition": "Mammogram_check"
-    },
-
-    "Mammogram_check": {
-      "type": "Simple",
       "conditional_transition": [
-        {
-          "condition" : {
-            "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 40,
-            "unit": "years"
-          },
-          "transition": "Mammogram_module"
-        },
         {
           "condition": {
             "condition_type": "Attribute",
@@ -61,95 +47,28 @@
             "attribute": "Breast_cancer_present",
             "operator": "is not nil"
           },
-          "transition": "No_diagnosis_delay"
+          "transition": "No_treatment_delay"
         }
       ]
     },
 
-    "Mammogram_module": {
-      "type": "CallSubmodule",
-      "submodule": "breast_cancer/mammogram",
-      "conditional_transition": [
-        {
-          "condition": {
-            "condition_type": "Active Condition",
-            "codes": [
-              {
-                "system": "SNOMED-CT",
-                "code": "254837009",
-                "display": "Malignant neoplasm of breast (disorder)"
-              }
-            ]
-          },
-          "transition": "Diagnosis_delay"
-        },
-        {
-          "condition": {
-            "condition_type": "Attribute",
-            "attribute": "Breast_cancer_present",
-            "operator": "is not nil"
-          },
-          "transition": "No_diagnosis_delay"
-        },
-        {
-          "condition": {
-            "condition_type": "Attribute",
-            "attribute": "Breast_cancer_present",
-            "operator": "is nil"
-          },
-          "transition": "No_cancer_delay"
-        }
-      ]
-    },
-
-    "Diagnosis_delay": {
-      "type": "Delay",
-      "exact": {
-        "unit": "months",
-        "quantity": 1
-      },
-      "direct_transition": "Diagnosis_death_probability"
-    },
-
-    "Diagnosis_death_probability": {
-      "type": "Simple",
-      "distributed_transition": [
-        {
-          "distribution": 0.0167,
-          "transition": "Death",
-          "remarks": "0.2 (~20%) death chance every year from untreated Breast Cancer, /12 months"
-        },
-        {
-          "distribution": 0.9833,
-          "transition": "Diagnosis_counter"
-        }
-      ]
-    },
-
-    "Diagnosis_counter": {
-      "type": "Counter",
-      "attribute": "Breast_cancer_months_since_diagnosis",
-      "action": "increment",
-      "direct_transition": "Diagnosis_delay"
-    },
-
-    "No_diagnosis_counter": {
+    "No_treatment_counter": {
       "type": "Counter",
       "attribute": "Breast_cancer_months_since_onset",
       "action": "increment",
-      "direct_transition": "Mammogram_check"
+      "direct_transition": "No_treatment_delay"
     },
 
-    "No_diagnosis_delay": {
+    "No_treatment_delay": {
       "type": "Delay",
       "exact": {
         "unit": "months",
         "quantity": 1
       },
-      "direct_transition": "No_diagnosis_death_probability"
+      "direct_transition": "No_treatment_death_probability"
     },
 
-    "No_diagnosis_death_probability": {
+    "No_treatment_death_probability": {
       "type": "Simple",
       "distributed_transition": [
         {
@@ -159,7 +78,7 @@
         },
         {
           "distribution": 0.9833,
-          "transition": "No_diagnosis_counter"
+          "transition": "No_treatment_counter"
         }
       ]
     },
@@ -182,20 +101,7 @@
         "unit": "years",
         "quantity": 1
       },
-      "conditional_transition": [
-        {
-          "condition": {
-            "condition_type": "Age",
-            "operator": ">",
-            "quantity": 80,
-            "unit": "years"
-          },
-          "transition": "Terminal"
-        },
-        {
-          "transition": "Chance_of_breast_cancer"
-        }
-      ]
+      "direct_transition": "Breast_cancer_risk_submodule"
     },
 
     "Terminal": {

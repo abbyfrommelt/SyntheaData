@@ -59,14 +59,7 @@
 
     "BiennialMammogramEncounter" : {
       "type": "Encounter",
-      "encounter_class": "ambulatory",
-      "codes": [
-        {
-          "system": "SNOMED-CT",
-          "code": "50849002",
-          "display": "Provider-initiated encounter"
-        }
-      ],
+      "wellness": true,
       "direct_transition": "MammogramProcedure"
     },
 
@@ -81,112 +74,150 @@
           "display": "Screening Mammography (procedure)"
         }
       ],
+      "conditional_transition": [
+        {
+          "condition": {
+            "condition_type": "Attribute",
+            "attribute": "breast_cancer_present",
+            "operator": "is not nil"
+          },
+          "transition": "Cancer_present_followup_by_age"
+        },
+        {
+          "transition": "Cancer_not_present_followup_by_age"
+        }
+      ]
+    },
+
+    "Cancer_present_followup_by_age": {
+      "type": "Simple",
       "complex_transition": [
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 40,
-            "unit": "years"
-          },
-          "distributions": [
-            {
-              "distribution": 0.875,
-              "transition": "EncounterEndNoDiagnosis"
-            },
-            {
-              "distribution": 0.125,
-              "transition": "EncounterEndFollowup"
-            }
-          ]
-        },
-        {
-          "condition": {
-            "condition_type": "Age",
-            "operator": ">=",
+            "operator": "<",
             "quantity": 45,
             "unit": "years"
           },
           "distributions": [
             {
-              "distribution": 0.882,
-              "transition": "EncounterEndNoDiagnosis"
+              "distribution": 0.734,
+              "transition": "EncounterFollowupFindings"
             },
             {
-              "distribution": 0.118,
-              "transition": "EncounterEndFollowup"
+              "distribution": 0.266,
+              "transition": "EncounterNoFollowupFindings"
             }
           ]
         },
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
+            "operator": "<",
             "quantity": 50,
             "unit": "years"
           },
           "distributions": [
             {
-              "distribution": 0.9,
-              "transition": "EncounterEndNoDiagnosis"
+              "distribution": 0.825,
+              "transition": "EncounterFollowupFindings"
             },
             {
-              "distribution": 0.1,
-              "transition": "EncounterEndFollowup"
+              "distribution": 0.175,
+              "transition": "EncounterNoFollowupFindings"
             }
           ]
         },
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
+            "operator": "<",
             "quantity": 55,
             "unit": "years"
           },
           "distributions": [
             {
-              "distribution": 0.914,
-              "transition": "EncounterEndNoDiagnosis"
+              "distribution": 0.826,
+              "transition": "EncounterFollowupFindings"
             },
             {
-              "distribution": 0.086,
-              "transition": "EncounterEndFollowup"
+              "distribution": 0.124,
+              "transition": "EncounterNoFollowupFindings"
             }
           ]
         },
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
+            "operator": "<",
             "quantity": 60,
             "unit": "years"
           },
           "distributions": [
             {
-              "distribution": 0.918,
-              "transition": "EncounterEndNoDiagnosis"
+              "distribution": 0.857,
+              "transition": "EncounterFollowupFindings"
             },
             {
-              "distribution": 0.082,
-              "transition": "EncounterEndFollowup"
+              "distribution": 0.143,
+              "transition": "EncounterNoFollowupFindings"
             }
           ]
         },
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
+            "operator": "<",
             "quantity": 65,
             "unit": "years"
           },
           "distributions": [
             {
-              "distribution": 0.922,
-              "transition": "EncounterEndNoDiagnosis"
+              "distribution": 0.847,
+              "transition": "EncounterFollowupFindings"
             },
             {
-              "distribution": 0.078,
-              "transition": "EncounterEndFollowup"
+              "distribution": 0.153,
+              "transition": "EncounterNoFollowupFindings"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": "<",
+            "quantity": 75,
+            "unit": "years"
+          },
+          "remarks": [
+            "65-75 have the same sensitivity"
+          ],
+          "distributions": [
+            {
+              "distribution": 0.863,
+              "transition": "EncounterFollowupFindings"
+            },
+            {
+              "distribution": 0.137,
+              "transition": "EncounterNoFollowupFindings"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": "<",
+            "quantity": 80,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.884,
+              "transition": "EncounterFollowupFindings"
+            },
+            {
+              "distribution": 0.116,
+              "transition": "EncounterNoFollowupFindings"
             }
           ]
         },
@@ -194,21 +225,226 @@
           "condition": {
             "condition_type": "Age",
             "operator": ">=",
+            "quantity": 80,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.885,
+              "transition": "EncounterFollowupFindings"
+            },
+            {
+              "distribution": 0.115,
+              "transition": "EncounterNoFollowupFindings"
+            }
+          ]
+        }
+      ]
+    },
+
+    "Cancer_not_present_followup_by_age": {
+      "type": "Simple",
+      "complex_transition": [
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": "<",
+            "quantity": 45,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.123,
+              "transition": "EncounterFollowupFindings"
+            },
+            {
+              "distribution": 0.877,
+              "transition": "EncounterNoFollowupFindings"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": "<",
+            "quantity": 50,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.115,
+              "transition": "EncounterFollowupFindings"
+            },
+            {
+              "distribution": 0.885,
+              "transition": "EncounterNoFollowupFindings"
+            }
+          ]
+        },
+
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": "<",
+            "quantity": 55,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.096,
+              "transition": "EncounterFollowupFindings"
+            },
+            {
+              "distribution": 0.904,
+              "transition": "EncounterNoFollowupFindings"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": "<",
+            "quantity": 60,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.083,
+              "transition": "EncounterFollowupFindings"
+            },
+            {
+              "distribution": 0.917,
+              "transition": "EncounterNoFollowupFindings"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": "<",
+            "quantity": 65,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.078,
+              "transition": "EncounterFollowupFindings"
+            },
+            {
+              "distribution": 0.922,
+              "transition": "EncounterNoFollowupFindings"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": "<",
             "quantity": 70,
             "unit": "years"
           },
           "distributions": [
             {
-              "distribution": 0.929,
-              "transition": "EncounterEndNoDiagnosis"
+              "distribution": 0.073,
+              "transition": "EncounterFollowupFindings"
             },
             {
-              "distribution": 0.071,
-              "transition": "EncounterEndFollowup"
+              "distribution": 0.927,
+              "transition": "EncounterNoFollowupFindings"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": "<",
+            "quantity": 75,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.067,
+              "transition": "EncounterFollowupFindings"
+            },
+            {
+              "distribution": 0.933,
+              "transition": "EncounterNoFollowupFindings"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": "<",
+            "quantity": 80,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.065,
+              "transition": "EncounterFollowupFindings"
+            },
+            {
+              "distribution": 0.935,
+              "transition": "EncounterNoFollowupFindings"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_type": "Age",
+            "operator": ">=",
+            "quantity": 80,
+            "unit": "years"
+          },
+          "distributions": [
+            {
+              "distribution": 0.062,
+              "transition": "EncounterFollowupFindings"
+            },
+            {
+              "distribution": 0.938,
+              "transition": "EncounterNoFollowupFindings"
             }
           ]
         }
       ]
+    },
+
+    "EncounterFollowupFindings": {
+      "type": "Observation",
+      "category": "imaging",
+      "unit": "[arb'U]",
+      "codes": [
+        {
+          "system": "LOINC",
+          "code": "26175-0",
+          "display": "MG Breast - bilateral screening"
+        }
+      ],
+      "range": {
+        "low": 4,
+        "high": 5
+      },
+      "direct_transition": "EncounterEndFollowup"
+    },
+
+    "EncounterNoFollowupFindings": {
+      "type": "Observation",
+      "category": "imaging",
+      "unit": "[arb'U]",
+      "codes": [
+        {
+          "system": "LOINC",
+          "code": "26175-0",
+          "display": "MG Breast - bilateral screening"
+        }
+      ],
+      "range": {
+        "low": 1,
+        "high": 3
+      },
+      "direct_transition": "EncounterEndNoDiagnosis"
     },
 
     "EncounterEndFollowup": {
