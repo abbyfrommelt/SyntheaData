@@ -414,7 +414,7 @@
     "EncounterFollowupFindings": {
       "type": "Observation",
       "category": "imaging",
-      "unit": "[arb'U]",
+      "unit": "{score}",
       "codes": [
         {
           "system": "LOINC",
@@ -432,7 +432,7 @@
     "EncounterNoFollowupFindings": {
       "type": "Observation",
       "category": "imaging",
-      "unit": "[arb'U]",
+      "unit": "{score}",
       "codes": [
         {
           "system": "LOINC",
@@ -626,13 +626,203 @@
       "codes": [
         {
           "system": "SNOMED-CT",
-          "code": "122548005",
-          "display": "Biopsy of breast (procedure)"
+          "code": "48635004",
+          "display": "Fine needle biopsy (procedure)"
         }
       ],
       "duration": { "low": 20, "high": 60, "unit": "minutes" },
       "remarks": [
-        "Biopsy lengths taken from https://www.insideradiology.com.au/breast-core-biopsy/"
+        "Biopsy lengths taken from https://www.insideradiology.com.au/breast-core-biopsy/",
+        "Biopsy sensitivity/specificity (for the transitions) from https://doi.org/10.1016/j.breast.2016.11.009"
+      ],
+      "complex_transition": [
+        {
+          "condition": {
+            "condition_type": "Attribute",
+            "attribute": "Breast_cancer_present",
+            "operator": "is not nil"
+          },
+          "distributions": [
+            {
+              "distribution": 0.81,
+              "transition": "DiagnosisObservationsSize"
+            },
+            {
+              "distribution": 0.19,
+              "transition": "EncounterEndNoDiagnosis"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_type": "Attribute",
+            "attribute": "Breast_cancer_present",
+            "operator": "is nil"
+          },
+          "distributions": [
+            {
+              "distribution": 0.99,
+              "transition": "EncounterEndNoDiagnosis"
+            },
+            {
+              "distribution": 0.01,
+              "transition": "DiagnosisObservationsSize"
+            }
+          ]
+        }
+      ]
+    },
+
+    "DiagnosisObservationsSize": {
+      "type": "Observation",
+      "unit": "mm",
+      "range": {
+        "low": 1,
+        "high": 50
+      },
+      "codes": [
+        {
+          "system": "LOINC",
+          "code": "21889-1",
+          "display": "Size Tumor"
+        },
+        {
+          "system": "LOINC",
+          "code": "33728-7",
+          "display": "Size.maximum dimension in Tumor"
+        }
+      ],
+      "distributed_transition": [
+        {
+          "distribution": 0.15,
+          "transition": "DiagnosisObservationsExtension"
+        },
+        {
+          "distribution": 0.85,
+          "transition": "DiagnosisObservationsNoExtension"
+        }
+      ],
+      "remarks": [
+        "Extension/no extension statistics are made up, better statistics need to be sourced"
+      ]
+    },
+
+    "DiagnosisObservationsExtension": {
+      "type": "Observation",
+      "unit": "{nominal}",
+      "category": "laboratory",
+      "codes": [
+        {
+          "system": "LOINC",
+          "code": "21890-9",
+          "display": "Extension Cancer"
+        }
+      ],
+      "exact": {
+        "quantity": "Extension to the Chest Wall"
+      },
+      "distributed_transition": [
+        {
+          "distribution": 0.25,
+          "transition": "DiagnosisObservationMetastasis"
+        },
+        {
+          "distribution": 0.75,
+          "transition": "DiagnosisObservationNoMetastasis"
+        }
+      ],
+      "remarks": [
+        "Metastasis transition stats are made up, better statistics need to be sourced"
+      ]
+    },
+
+    "DiagnosisObservationsNoExtension": {
+      "type": "Observation",
+      "unit": "{nominal}",
+      "category": "laboratory",
+      "codes": [
+        {
+          "system": "LOINC",
+          "code": "21890-9",
+          "display": "Extension Cancer"
+        }
+      ],
+      "exact": {
+        "quantity": "Extension to the Chest Wall"
+      },
+      "distributed_transition": [
+        {
+          "distribution": 0.15,
+          "transition": "DiagnosisObservationMetastasis"
+        },
+        {
+          "distribution": 0.85,
+          "transition": "DiagnosisObservationNoMetastasis"
+        }
+      ],
+      "remarks": [
+        "Metastasis transition stats are made up, better statistics need to be sourced"
+      ]
+    },
+
+    "DiagnosisObservationMetastasis": {
+      "type": "Observation",
+      "unit": "{nominal}",
+      "category": "laboratory",
+      "codes": [
+        {
+          "system": "LOINC",
+          "code": "44667-4",
+          "display": "Site of distant metastasis in Breast tumor"
+        }
+      ],
+      "range": {
+        "low": 1,
+        "high": 8
+      },
+      "direct_transition": "DiagnosisDR"
+    },
+
+    "DiagnosisObservationNoMetastasis": {
+      "type": "Observation",
+      "unit": "{nominal}",
+      "category": "laboratory",
+      "codes": [
+        {
+          "system": "LOINC",
+          "code": "44667-4",
+          "display": "Site of distant metastasis in Breast tumor"
+        }
+      ],
+      "exact": {
+        "quantity": 0
+      },
+      "direct_transition": "DiagnosisDR"
+    },
+
+    "DiagnosisDR": {
+      "type": "DiagnosticReport",
+      "number_of_observations": 3,
+      "codes": [
+        {
+          "system": "LOINC",
+          "code": "49143-1",
+          "display": "North American Association of Central Cancer Registries, Inc (NAACCR, Inc) Pathology Laboratory Electronic Reporting panel"
+        }
+      ],
+      "direct_transition": "EncounterEndDiagnosis"
+    },
+
+    "BreastCancerDiagnosisEncounter": {
+      "type": "Encounter",
+      "encounter_class": "ambulatory",
+      "reason": "breast_cancer",
+      "codes": [
+        {
+          "system": "SNOMED-CT",
+          "code": "185317003",
+          "display": "Telephone encounter (procedure)"
+        }
       ],
       "direct_transition": "BreastCancerDiagnosis"
     },
@@ -640,6 +830,7 @@
     "BreastCancerDiagnosis": {
       "type": "ConditionOnset",
       "assign_to_attribute": "breast_cancer",
+      "target_encounter": "BreastCancerDiagnosisEncounter",
       "codes": [
         {
           "system": "SNOMED-CT",
@@ -647,7 +838,12 @@
           "display": "Malignant neoplasm of breast (disorder)"
         }
       ],
-      "direct_transition": "EncounterEndDiagnosis"
+      "direct_transition": "BreastCancerDiagnosisEncounterEnd"
+    },
+
+    "BreastCancerDiagnosisEncounterEnd": {
+      "type": "EncounterEnd",
+      "direct_transition": "Terminal"
     },
 
     "EncounterEndNoDiagnosis": {
@@ -657,7 +853,17 @@
 
     "EncounterEndDiagnosis": {
       "type": "EncounterEnd",
-      "direct_transition": "Terminal"
+      "direct_transition": "DiagnosisDelay"
+    },
+
+    "DiagnosisDelay": {
+      "type": "Delay",
+      "range": {
+        "low": 7,
+        "high": 14,
+        "unit": "days"
+      },
+      "direct_transition": "BreastCancerDiagnosisEncounter"
     },
 
     "Terminal": {
