@@ -7,12 +7,6 @@
   "states": {
     "Initial": {
       "type": "Initial",
-      "direct_transition": "Breast_cancer_risk_submodule"
-    },
-
-    "Breast_cancer_risk_submodule": {
-      "type": "CallSubmodule",
-      "submodule": "breast_cancer/breast_cancer_risk_factors",
       "direct_transition": "Age_Guard"
     },
 

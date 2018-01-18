@@ -101,7 +101,7 @@
         "unit": "years",
         "quantity": 1
       },
-      "direct_transition": "Breast_cancer_risk_submodule"
+      "direct_transition": "Chance_of_breast_cancer"
     },
 
     "Terminal": {

@@ -69,8 +69,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 20,
+            "operator": "<",
+            "quantity": 25,
             "unit": "years"
           },
           "distributions": [
@@ -87,8 +87,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 25,
+            "operator": "<",
+            "quantity": 30,
             "unit": "years"
           },
           "distributions": [
@@ -105,8 +105,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 30,
+            "operator": "<",
+            "quantity": 35,
             "unit": "years"
           },
           "distributions": [
@@ -123,8 +123,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 35,
+            "operator": "<",
+            "quantity": 40,
             "unit": "years"
           },
           "distributions": [
@@ -141,8 +141,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 40,
+            "operator": "<",
+            "quantity": 45,
             "unit": "years"
           },
           "distributions": [
@@ -159,8 +159,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 45,
+            "operator": "<",
+            "quantity": 50,
             "unit": "years"
           },
           "distributions": [
@@ -177,8 +177,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 50,
+            "operator": "<",
+            "quantity": 55,
             "unit": "years"
           },
           "distributions": [
@@ -195,8 +195,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 55,
+            "operator": "<",
+            "quantity": 60,
             "unit": "years"
           },
           "distributions": [
@@ -213,8 +213,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 60,
+            "operator": "<",
+            "quantity": 65,
             "unit": "years"
           },
           "distributions": [
@@ -231,8 +231,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 65,
+            "operator": "<",
+            "quantity": 70,
             "unit": "years"
           },
           "distributions": [
@@ -258,8 +258,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 20,
+            "operator": "<",
+            "quantity": 25,
             "unit": "years"
           },
           "distributions": [
@@ -276,8 +276,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 25,
+            "operator": "<",
+            "quantity": 30,
             "unit": "years"
           },
           "distributions": [
@@ -294,8 +294,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 30,
+            "operator": "<",
+            "quantity": 35,
             "unit": "years"
           },
           "distributions": [
@@ -312,8 +312,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 35,
+            "operator": "<",
+            "quantity": 40,
             "unit": "years"
           },
           "distributions": [
@@ -330,8 +330,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 40,
+            "operator": "<",
+            "quantity": 45,
             "unit": "years"
           },
           "distributions": [
@@ -348,8 +348,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 45,
+            "operator": "<",
+            "quantity": 50,
             "unit": "years"
           },
           "distributions": [
@@ -366,8 +366,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 50,
+            "operator": "<",
+            "quantity": 55,
             "unit": "years"
           },
           "distributions": [
@@ -384,8 +384,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 55,
+            "operator": "<",
+            "quantity": 60,
             "unit": "years"
           },
           "distributions": [
@@ -402,8 +402,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 60,
+            "operator": "<",
+            "quantity": 65,
             "unit": "years"
           },
           "distributions": [
@@ -420,8 +420,8 @@
         {
           "condition": {
             "condition_type": "Age",
-            "operator": ">=",
-            "quantity": 65,
+            "operator": "<",
+            "quantity": 70,
             "unit": "years"
           },
           "distributions": [
