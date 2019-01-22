@@ -4,9 +4,15 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
+import com.jayway.jsonpath.Configuration;
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.spi.json.GsonJsonProvider;
+import com.jayway.jsonpath.spi.mapper.GsonMappingProvider;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,9 +24,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 
+import org.mitre.synthea.helpers.Config;
+import org.mitre.synthea.helpers.Utilities;
 import org.mitre.synthea.modules.CardiovascularDiseaseModule;
 import org.mitre.synthea.modules.EncounterModule;
 import org.mitre.synthea.modules.HealthInsuranceModule;
@@ -30,14 +39,19 @@ import org.mitre.synthea.world.agents.Person;
 
 /**
  * Module represents the entry point of a generic module.
- * 
- * <p>The `modules` map is the static list of generic modules. It is loaded once per process, 
- * and the list of modules is shared between the generated population. Because we share modules 
- * across the population, it is important that States are cloned before they are executed. 
+ *
+ * <p>The `modules` map is the static list of generic modules. It is loaded once per process,
+ * and the list of modules is shared between the generated population. Because we share modules
+ * across the population, it is important that States are cloned before they are executed.
  * This keeps the "master" copy of the module clean.
  */
 public class Module {
 
+  private static final Configuration JSON_PATH_CONFIG = Configuration.builder()
+      .jsonProvider(new GsonJsonProvider())
+      .mappingProvider(new GsonMappingProvider())
+      .build();
+  
   private static final Map<String, Module> modules = loadModules();
 
   private static Map<String, Module> loadModules() {
@@ -48,14 +62,29 @@ public class Module {
     retVal.put("Quality Of Life", new QualityOfLifeModule());
     retVal.put("Health Insurance", new HealthInsuranceModule());
 
+    String moduleOverrideFile = Config.get("module_override");
+    Properties overrides = null;
+    if (moduleOverrideFile != null && !moduleOverrideFile.trim().equals("")) {
+      try {
+        overrides = new Properties();
+        overrides.load(new FileReader(moduleOverrideFile));
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    }
+    
+    Properties moduleOverrides = overrides; // hack variable so we can use it in the lambda below
+
     try {
-      URL modulesFolder = ClassLoader.getSystemClassLoader().getResource("modules");
-      Path path = Paths.get(modulesFolder.toURI());
-      Files.walk(path, Integer.MAX_VALUE).filter(Files::isReadable).filter(Files::isRegularFile)
+      URL baseFolder = ClassLoader.getSystemClassLoader().getResource("modules");
+      Path modulesPath = Paths.get(baseFolder.toURI());
+      Path basePath = modulesPath.getParent();
+      Files.walk(modulesPath, Integer.MAX_VALUE).filter(Files::isReadable).filter(Files::isRegularFile)
           .filter(p -> p.toString().endsWith(".json")).forEach(t -> {
             try {
-              Module module = loadFile(t, path);
-              String relativePath = relativePath(t, path);
+              Module module = loadFile(t, basePath, modulesPath, moduleOverrides);
+              String relativePath = relativePath(t, modulesPath);
               retVal.put(relativePath, module);
             } catch (Exception e) {
               e.printStackTrace();
@@ -77,19 +106,31 @@ public class Module {
         .replace("\\", "/");
   }
 
-  public static Module loadFile(Path path, Path modulesFolder) throws Exception {
+  public static Module loadFile(Path path, Path basePath, Path modulesFolder, Properties overrides) throws Exception {
     System.out.format("Loading %s\n", path.toString());
     boolean submodule = !path.getParent().equals(modulesFolder);
-    JsonObject object = null;
-    FileReader fileReader = null;
-    JsonReader reader = null;
-    fileReader = new FileReader(path.toString());
-    reader = new JsonReader(fileReader);
+    path = basePath.relativize(path);
+    String jsonString = Utilities.readResource(path.toString());
+    if (overrides != null) {
+      jsonString = applyOverrides(jsonString, overrides, path.getFileName().toString());
+    }
     JsonParser parser = new JsonParser();
-    object = parser.parse(reader).getAsJsonObject();
-    fileReader.close();
-    reader.close();
+    JsonObject object = parser.parse(jsonString).getAsJsonObject();
     return new Module(object, submodule);
+  }
+  
+  private static String applyOverrides(String jsonString, Properties overrides, String moduleFileName) {
+    DocumentContext ctx = JsonPath.using(JSON_PATH_CONFIG).parse(jsonString);
+    overrides.forEach((key, value) -> {
+      String[] parts = ((String)key).split("::"); // use :: for the separator because files cannot contain :
+      String module = parts[0];
+      if (module.equals(moduleFileName)) {
+        String jsonPath = parts[1];
+        Double numberValue = Double.parseDouble((String)value);
+        ctx.set(jsonPath, numberValue);
+      }
+    });
+    return ctx.jsonString();
   }
 
   public static String[] getModuleNames() {
