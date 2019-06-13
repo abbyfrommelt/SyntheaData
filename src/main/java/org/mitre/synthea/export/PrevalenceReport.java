@@ -10,11 +10,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.mitre.synthea.engine.Generator;
+import org.mitre.synthea.helpers.Config;
 import org.mitre.synthea.helpers.SimpleCSV;
 import org.mitre.synthea.helpers.Utilities;
+
+import com.kitfox.svg.A;
 
 public class PrevalenceReport {
 
@@ -23,13 +28,16 @@ public class PrevalenceReport {
   private static final String ACTUAL_PREV_PERCENT = "ACTUAL PREVALENCE PERCENT";
   private static final String PREV_RATE = "SYNTHEA PREVALENCE RATE";
   private static final String PREV_PERCENT = "SYNTHEA PREVALENCE PERCENT";
-  private static final String ITEM = "ITEM";
+  private static final String CODE = "CODE";
+  private static final String DISPLAY = "DISPLAY";
   private static final String GENDER = "GENDER";
   private static final String RACE = "RACE";
   private static final String AGE = "AGE GROUP";
-  private static final String OCCUR = "SYNTHEA OCCURRENCES";
-  private static final String POP = "SYNTHEA POPULATION";
-  private static final String GIVEN_CON = "GIVEN CONDITION";
+  private static final String ATTRIBUTES = "ATTRIBUTES";
+  private static final String OCCURRENCES = "SYNTHEA OCCURRENCES";
+  private static final String POPULATION = "SYNTHEA POPULATION";
+  private static final String GIVEN_CON_DISPLAY = "GIVEN CONDITION DISPLAY";
+  private static final String GIVEN_CON_CODE = "GIVEN CONDITION CODE";
 
   private static final String ALL = "*";
 
@@ -40,26 +48,28 @@ public class PrevalenceReport {
       return;
     }
 
-    String csvData = Utilities.readResource("prevalence_template.csv");
+    String filename = Config.get("prevalence_template", "prevalence_template.csv");
+    String csvData;
+    
+    try {
+      csvData = Utilities.readResource(filename);
+    } catch (Exception e) {
+      // assume it's a file outside the jar
+      csvData = new String(Files.readAllBytes(new File(filename).toPath()), "UTF-8");
+    }
     List<LinkedHashMap<String, String>> data = SimpleCSV.parse(csvData);
 
     try (Connection connection = generator.database.getConnection()) {
 
       for (LinkedHashMap<String, String> line : data) {
 
-        if (line.get(ITEM).isEmpty()) {
+        if (line.get(CODE).isEmpty() && line.get(DISPLAY).isEmpty()) {
           continue;
         }
 
-        if (line.get(GIVEN_CON).isEmpty()) {
-          getPrev(connection, line);
-        } else {
-          givenCondition(connection, line);
-        }
-
-        getPop(connection, line);
-        completeSyntheaFields(connection, line);
-        completeDifferenceField(connection, line);
+        getPrevalence(connection, line);
+        completeSyntheaFields(line);
+        calculateDifferenceFromActual(line);
       }
 
       allConditions(connection, data);
@@ -76,17 +86,28 @@ public class PrevalenceReport {
   }
 
   /**
-   * Uses a string builder to run a query dependent upon what is on each line of the CSV template.
-   * Executes the query after filling in the indexes. Inserts result of query into the occurrences
-   * column.
+   * Constructs and executes a query to find the population and occurrences 
+   * for the condition and filters on a single line of the report.
+   * 
+   * @param connection Database connection
+   * @param line Current line of the prevalence report to look up stats for and populate fields
    */
-  private static void getPrev(Connection connection, LinkedHashMap<String, String> line)
+  private static void getPrevalence(Connection connection, LinkedHashMap<String, String> line)
       throws SQLException {
 
     StringBuilder sb = new StringBuilder();
-    sb.append("SELECT COUNT(*) FROM PERSON p, CONDITION c, ATTRIBUTE a\n" + "WHERE \n"
-        + "p.ID = c.PERSON_ID\n" + "AND c.PERSON_ID = a.PERSON_ID\n" + "AND (c.DISPLAY = ?)\n"
-        + "AND (p.DATE_OF_DEATH is null)\n" + "");
+    sb.append("SELECT COUNT(*) population, \n"); // main query selects entire population
+    sb.append("SUM( CASE WHEN c.CODE is NOT NULL then 1 ELSE 0 END ) occurrences \n");
+    // subquery to count rows where the named condition exists, using an outer join
+    sb.append("FROM PERSON p \n");
+    sb.append("LEFT JOIN CONDITION c on p.id = c.PERSON_ID and (c.CODE = ? OR c.DISPLAY = ?) \n");
+
+    String age = line.get(AGE);
+    if (!age.equals(ALL)) {
+      sb.append("LEFT JOIN ATTRIBUTE a on p.ID = a.PERSON_ID and a.NAME= 'AGE'  \n");
+    }
+
+    sb.append("WHERE p.DATE_OF_DEATH is null \n"); 
 
     String gender = line.get(GENDER);
     if (!gender.equals(ALL)) {
@@ -98,19 +119,45 @@ public class PrevalenceReport {
       sb.append("AND (p.RACE = ?)\n");
     }
 
-    String age = line.get(AGE);
     if (age.equals("adult")) {
-      sb.append("AND (a.NAME = 'AGE' AND CAST(a.VALUE AS INT) >= 18)\n");
+      sb.append("AND CAST(a.VALUE AS INT) >= 18  \n");
     } else if (age.equals("child")) {
-      sb.append("AND (a.NAME = 'AGE' AND CAST(a.VALUE AS INT) < 18)\n");
+      sb.append("AND CAST(a.VALUE AS INT) < 18  \n");
     } else if (age.equals("senior")) {
-      sb.append("AND (a.NAME = 'AGE' AND CAST(a.VALUE AS INT) >= 65)\n");
+      sb.append("AND CAST(a.VALUE AS INT) >= 65  \n");
     }
 
+    String givenConditionDisplay = line.get(GIVEN_CON_DISPLAY);
+    String givenConditionCode = line.get(GIVEN_CON_CODE);
+    if (!givenConditionDisplay.isEmpty() || !givenConditionCode.isEmpty()) {
+      sb.append("AND EXISTS(")
+        .append("  SELECT 1 FROM CONDITION gc")
+        .append("  WHERE p.ID = gc.PERSON_ID")
+        .append("  AND (gc.CODE = ? OR gc.DISPLAY = ?)")
+        .append(") \n");
+    }
+    
+    // attributes format, attr1=val1;attr2=val2;etc...
+    String attributesStr = line.get(ATTRIBUTES);
+    
+    if (attributesStr != null && !attributesStr.isEmpty()) {
+      int numberOfAttributes = StringUtils.countMatches(attributesStr, '=');
+      for (int i = 0 ; i < numberOfAttributes ; i++) {
+        String tableAlias = "ai_" + i;
+        sb.append("AND EXISTS(")
+        .append("  SELECT 1 FROM ATTRIBUTE ").append(tableAlias)
+        .append("  WHERE p.ID = ").append(tableAlias).append(".PERSON_ID")
+        .append("  AND ").append(tableAlias).append(".NAME = ? ")
+        .append("  AND ").append(tableAlias).append(".VALUE = ?")
+        .append(") \n");
+      }
+    }
+    
     PreparedStatement stmt = connection.prepareStatement(sb.toString());
 
     int index = 1; // SQL begins at 1 not 0
-    stmt.setString(index++, line.get(ITEM));
+    stmt.setString(index++, line.get(CODE));
+    stmt.setString(index++, line.get(DISPLAY));
 
     if (!gender.equals(ALL)) {
       stmt.setString(index++, gender);
@@ -120,77 +167,41 @@ public class PrevalenceReport {
       stmt.setString(index++, race);
     }
 
+    if (!givenConditionDisplay.isEmpty() || !givenConditionCode.isEmpty()) {
+    	stmt.setString(index++, givenConditionCode);
+    	stmt.setString(index++, givenConditionDisplay);
+    }
+    
+    if (attributesStr != null && !attributesStr.isEmpty()) {
+      String[] attributes = attributesStr.split(";");
+      for (String attribute : attributes) {
+        String[] parts = attribute.split("=");
+        stmt.setString(index++, parts[0]); // attribute name
+        stmt.setString(index++, parts[1]); // attribute value
+      }
+    }
+
     ResultSet rs = stmt.executeQuery();
 
     rs.next();
 
-    int countOccur = rs.getInt(1);
-    line.put(OCCUR, Integer.toString(countOccur));
-  }
-
-  /**
-   * Uses a string builder to run a query dependent upon what is on each line of the CSV template.
-   * Executes the query after filling in the indexes. Inserts result of query into the population
-   * column.
-   */
-  private static void getPop(Connection connection, LinkedHashMap<String, String> line)
-      throws SQLException {
-
-    StringBuilder sb = new StringBuilder();
-    sb.append("SELECT COUNT(*) FROM PERSON p, ATTRIBUTE a\n" + "WHERE \n" + "p.ID = a.PERSON_ID\n"
-        + "AND (p.DATE_OF_DEATH is null)\n" + "");
-
-    String gender = line.get(GENDER);
-    if (!gender.equals(ALL)) {
-      sb.append("AND (p.GENDER = ?)\n");
-    }
-
-    String race = line.get(RACE);
-    if (!race.equals(ALL)) {
-      sb.append("AND (p.RACE = ?)\n");
-    }
-
-    String age = line.get(AGE);
-    if (age.equals("adult")) {
-      sb.append("AND (a.NAME = 'AGE' AND CAST(a.VALUE AS INT) >= 18)\n");
-    } else if (age.equals("child")) {
-      sb.append("AND (a.NAME = 'AGE' AND CAST(a.VALUE AS INT) < 18)\n");
-    } else if (age.equals("senior")) {
-      sb.append("AND (a.NAME = 'AGE' AND CAST(a.VALUE AS INT) > 65)\n");
-    }
-
-    PreparedStatement stmt = connection.prepareStatement(sb.toString());
-
-    int index = 1; // SQL begins at 1 not 0
-
-    if (!gender.equals(ALL)) {
-      stmt.setString(index++, gender);
-    }
-
-    if (!race.equals(ALL)) {
-      stmt.setString(index++, race);
-    }
-
-    ResultSet rs = stmt.executeQuery();
-    rs.next();
-
-    int countPop = rs.getInt(1);
-    line.put(POP, Integer.toString(countPop));
+    int population = rs.getInt(1);
+    int occurrences = rs.getInt(2);
+    line.put(POPULATION, Integer.toString(population));
+    line.put(OCCURRENCES, Integer.toString(occurrences));
   }
 
   /**
    * Calculates the prevalence rate and percent based on what is on that line of the report. Inserts
    * result of calculation into the prevalence rate and percent columns.
    */
-  private static void completeSyntheaFields(Connection connection,
-      LinkedHashMap<String, String> line) throws SQLException {
-
-    if ((line.get(OCCUR).isEmpty()) || (line.get(POP).isEmpty())) {
+  private static void completeSyntheaFields(LinkedHashMap<String, String> line) {
+    if (line.get(OCCURRENCES).isEmpty() || line.get(POPULATION).isEmpty()) {
       line.put(PREV_RATE, (null));
       line.put(PREV_PERCENT, (null));
     } else {
-      double occurr = Double.parseDouble(line.get(OCCUR));
-      double pop = Double.parseDouble(line.get(POP));
+      double occurr = Double.parseDouble(line.get(OCCURRENCES));
+      double pop = Double.parseDouble(line.get(POPULATION));
 
       if (pop != 0) {
         double prevRate = occurr / pop;
@@ -208,8 +219,7 @@ public class PrevalenceReport {
    * Calculates the difference between the Synthea prevalence percent and actual percent based on
    * what is on that line of the report. Inserts result of calculation into the difference column.
    */
-  private static void completeDifferenceField(Connection connection,
-      LinkedHashMap<String, String> line) throws SQLException {
+  private static void calculateDifferenceFromActual(LinkedHashMap<String, String> line) {
     if (line.get(ACTUAL_PREV_PERCENT).isEmpty()) {
       line.put(DIFFERENCE, (null));
     } else {
@@ -218,28 +228,6 @@ public class PrevalenceReport {
       double diff = (prevPercent - actualPrev);
       line.put(DIFFERENCE, Double.toString(diff));
     }
-  }
-
-  /**
-   * Uses a string builder to run a query dependent upon what is on each line of the CSV template.
-   * Calculates the prevalence rate of one disease given another disease. Inserts result of query
-   * into the occurrences column.
-   */
-  private static void givenCondition(Connection connection, LinkedHashMap<String, String> line)
-      throws SQLException {
-    String query = "SELECT COUNT(*) FROM PERSON p, CONDITION c1, CONDITION c2 "
-        + "WHERE  p.ID = c1.PERSON_ID " + "AND c1.PERSON_ID = c2.PERSON_ID "
-        + "AND (p.DATE_OF_DEATH is null) " + "AND (c1.DISPLAY = ?) " + "AND (c2.DISPLAY = ?) ";
-
-    PreparedStatement stmt = connection.prepareStatement(query);
-    stmt.setString(1, line.get(ITEM));
-    stmt.setString(2, line.get(GIVEN_CON));
-
-    ResultSet rs = stmt.executeQuery();
-    rs.next();
-
-    int givenCondition = rs.getInt(1);
-    line.put(OCCUR, Integer.toString(givenCondition));
   }
 
   /**
@@ -259,22 +247,25 @@ public class PrevalenceReport {
 
     stmt = connection.prepareStatement(
         "select distinct c.display as DistinctDisplay, "
+        + "c.code DistinctCode, "
         + "count(distinct c.person_id) as CountDisplay \n"
         + "from condition c, person p\n" 
         + "where c.person_id = p.id\n"
         + "and p.date_of_death is null\n" 
-        + "group by c.display\n" 
+        + "group by c.display, c.code \n" 
         + "order by c.display ASC");
     rs = stmt.executeQuery();
     while (rs.next()) {
       String disease = rs.getString("DistinctDisplay");
+      String code = rs.getString("DistinctCode");
       int count = rs.getInt("CountDisplay");
       LinkedHashMap<String, String> line = new LinkedHashMap<String, String>();
-      line.put(ITEM, disease);
-      line.put(OCCUR, Integer.toString(count));
-      line.put(POP, Integer.toString(totalPopulation));
+      line.put(CODE, code);
+      line.put(DISPLAY, disease);
+      line.put(OCCURRENCES, Integer.toString(count));
+      line.put(POPULATION, Integer.toString(totalPopulation));
       data.add(line);
-      completeSyntheaFields(connection, line);
+      completeSyntheaFields(line);
     }
   }
 }

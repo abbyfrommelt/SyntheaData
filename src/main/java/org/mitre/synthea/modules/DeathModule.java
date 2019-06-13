@@ -19,7 +19,13 @@ public class DeathModule {
   // NOTE: if new codes are added, be sure to update getAllCodes below
   
   public static void process(Person person, long time) {
-    if (!person.alive(time) && person.attributes.containsKey(Person.CAUSE_OF_DEATH)) {
+    if (person.alive(time)) {
+      // remove the death from the record.
+      // otherwise it's tough to tell after the fact whether this patient did die or will die
+      person.attributes.remove(Person.CAUSE_OF_DEATH);
+      person.record.death = null;
+      // TODO: if stopping/restarting/reloading becomes a thing, this may have to be reworked
+    } else if (person.attributes.containsKey(Person.CAUSE_OF_DEATH)) {
       // create an encounter, diagnostic report, and observation
 
       Code causeOfDeath = (Code) person.attributes.get(Person.CAUSE_OF_DEATH);

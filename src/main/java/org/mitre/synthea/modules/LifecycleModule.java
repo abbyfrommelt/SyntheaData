@@ -29,7 +29,7 @@ import org.mitre.synthea.world.geography.Location;
 public final class LifecycleModule extends Module {
   @SuppressWarnings("rawtypes")
   private static final Map growthChart = loadGrowthChart();
-  private static final String AGE = "AGE";
+  public static final String AGE = "AGE";
   private static final String AGE_MONTHS = "AGE_MONTHS";
   public static final String QUIT_SMOKING_PROBABILITY = "quit smoking probability";
   public static final String QUIT_SMOKING_AGE = "quit smoking age";

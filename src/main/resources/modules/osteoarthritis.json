@@ -26,7 +26,15 @@
       "direct_transition": "Delay_Pre_Arthritis"
     },
     "Osteoarthritis": {
-      "type": "Simple",
+      "type": "ConditionOnset",
+      "assign_to_attribute": "",
+      "codes": [
+        {
+          "system": "SNOMED-CT",
+          "code": 396275006,
+          "display": "Osteoarthritis (disorder)"
+        }
+      ],
       "distributed_transition": [
         {
           "distribution": 0.234,
@@ -46,7 +54,8 @@
         " OSTEOARTHRITIS                                                       ",
         "======================================================================",
         "Source: http://www.cdc.gov/arthritis/basics/osteoarthritis.htm"
-      ]
+      ],
+      "target_encounter": "OA_Diagnosis"
     },
     "OA_Of_The_Hand": {
       "type": "ConditionOnset",

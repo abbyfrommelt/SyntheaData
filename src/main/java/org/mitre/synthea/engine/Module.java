@@ -13,10 +13,13 @@ import com.jayway.jsonpath.spi.mapper.GsonMappingProvider;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
+import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.spi.FileSystemProvider;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -77,8 +80,9 @@ public class Module {
     Properties moduleOverrides = overrides; // hack variable so we can use it in the lambda below
 
     try {
-      URL baseFolder = ClassLoader.getSystemClassLoader().getResource("modules");
-      Path modulesPath = Paths.get(baseFolder.toURI());
+      URI baseFolder = ClassLoader.getSystemClassLoader().getResource("modules").toURI();
+      fixPathFromJar(baseFolder);
+      Path modulesPath = Paths.get(baseFolder);
       Path basePath = modulesPath.getParent();
       Files.walk(modulesPath, Integer.MAX_VALUE).filter(Files::isReadable).filter(Files::isRegularFile)
           .filter(p -> p.toString().endsWith(".json")).forEach(t -> {
@@ -100,9 +104,23 @@ public class Module {
     return retVal;
   }
 
+  private static void fixPathFromJar(URI uri) throws IOException {
+    if("jar".equals(uri.getScheme())){
+      for (FileSystemProvider provider: FileSystemProvider.installedProviders()) {
+          if (provider.getScheme().equalsIgnoreCase("jar")) {
+              try {
+                  provider.getFileSystem(uri);
+              } catch (FileSystemNotFoundException e) {
+                  // in this case we need to initialize it first:
+                  provider.newFileSystem(uri, Collections.emptyMap());
+              }
+          }
+      }
+  }
+  }
+
   private static String relativePath(Path filePath, Path modulesFolder) {
-    String folderString = Matcher.quoteReplacement(modulesFolder.toString() + File.separator);
-    return filePath.toString().replaceFirst(folderString, "").replaceFirst(".json", "")
+    return modulesFolder.relativize(filePath).toString().replaceFirst(".json", "")
         .replace("\\", "/");
   }
 

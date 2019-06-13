@@ -57,7 +57,7 @@ public abstract class Transition {
    * percentage.
    */
   public static final class DistributedTransitionOption extends TransitionOption {
-    private Object distribution;
+    public Object distribution;
     private Double numericDistribution;
     private NamedDistribution namedDistribution;
   }
@@ -77,7 +77,7 @@ public abstract class Transition {
    * distribution of 0.0).
    */
   public static final class DistributedTransition extends Transition {
-    private List<DistributedTransitionOption> transitions;
+    public List<DistributedTransitionOption> transitions;
     
     public DistributedTransition(List<DistributedTransitionOption> transitions) {
       this.transitions = transitions;
@@ -138,7 +138,7 @@ public abstract class Transition {
    */
   public static final class ComplexTransitionOption extends TransitionOption {
     private Logic condition;
-    private List<DistributedTransitionOption> distributions;
+    public List<DistributedTransitionOption> distributions;
     
   }
   
@@ -155,7 +155,7 @@ public abstract class Transition {
    * module will transition to the last transition defined.
    */
   public static class ComplexTransition extends Transition {
-    private List<ComplexTransitionOption> transitions;
+    public List<ComplexTransitionOption> transitions;
     
     public ComplexTransition(List<ComplexTransitionOption> transitions) {
       this.transitions = transitions;

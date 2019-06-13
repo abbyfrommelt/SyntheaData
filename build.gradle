@@ -119,6 +119,18 @@ task concepts(type: JavaExec) {
   main = "org.mitre.synthea.helpers.Concepts"
 }
 
+task dumpModuleParams(type: JavaExec) {
+  description 'Export all module transition properties to an overrides file'
+  classpath sourceSets.main.runtimeClasspath
+  main = "org.mitre.synthea.helpers.overrides.Export"
+}
+
+task applyModuleOverrides(type: JavaExec) {
+  description 'Apply the set of module overrides to the module files'
+  classpath sourceSets.main.runtimeClasspath
+  main = "org.mitre.synthea.helpers.overrides.Apply"
+}
+
 task versionTxt() {
   doLast {
     try {

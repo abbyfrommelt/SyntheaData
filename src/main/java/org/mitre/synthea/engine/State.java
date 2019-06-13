@@ -347,7 +347,7 @@ public abstract class State implements Cloneable {
    */
   public static class SetAttribute extends State {
     private String attribute;
-    private Object value;
+    public Object value;
 
     @Override
     protected void initialize(Module module, String name, JsonObject definition) {

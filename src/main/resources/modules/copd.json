@@ -1,4 +1,3 @@
-
 {
   "name": "COPD",
   "remarks": [
@@ -265,7 +264,7 @@
         "low": 70,
         "high": 100
       },
-      "direct_transition": "DiagnosisEncounter"
+      "direct_transition": "COPD_Common_Diagnosis"
     },
     "DiagnosisEncounter": {
       "type": "Encounter",
@@ -971,6 +970,19 @@
     },
     "Terminal": {
       "type": "Terminal"
+    },
+    "COPD_Common_Diagnosis": {
+      "type": "ConditionOnset",
+      "assign_to_attribute": "",
+      "target_encounter": "DiagnosisEncounter",
+      "codes": [
+        {
+          "system": "SNOMED-CT",
+          "code": 13645005,
+          "display": "Chronic obstructive lung disease (disorder)"
+        }
+      ],
+      "direct_transition": "DiagnosisEncounter"
     }
   }
 }

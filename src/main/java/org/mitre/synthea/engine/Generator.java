@@ -168,9 +168,8 @@ public class Generator {
     }
 
     // initialize hospitals
-    Provider.loadProviders(location);
+//    Provider.loadProviders(location);
     Module.getModules(); // ensure modules load early
-    Costs.loadCostData(); // ensure cost data loads early
     
     String locationName;
     if (o.city == null) {
@@ -192,7 +191,10 @@ public class Generator {
    * Generate the population, using the currently set configuration settings.
    */
   public void run() {
-    ExecutorService threadPool = Executors.newFixedThreadPool(8);
+    String numThreads = Config.get("num_threads", "8");
+    int threads = Integer.parseInt(numThreads);
+    System.out.println("Using " + threads + " threads");
+    ExecutorService threadPool = Executors.newFixedThreadPool(threads);
 
     for (int i = 0; i < this.options.population; i++) {
       final int index = i;
@@ -209,11 +211,11 @@ public class Generator {
       e.printStackTrace();
     }
 
-    // have to store providers at the end to correctly capture utilization #s
-    // TODO - de-dup hospitals if using a file-based database?
-    if (database != null) {
-      database.store(Provider.getProviderList());
-    }
+//    // have to store providers at the end to correctly capture utilization #s
+//    // TODO - de-dup hospitals if using a file-based database?
+//    if (database != null) {
+//      database.store(Provider.getProviderList());
+//    }
 
     Exporter.runPostCompletionExports(this);
 
@@ -295,25 +297,25 @@ public class Generator {
 
         isAlive = person.alive(time);
 
-        if (isAlive && onlyDeadPatients) {
-          // rotate the seed so the next attempt gets a consistent but different one
-          personSeed = new Random(personSeed).nextLong();
-          continue;
-          // skip the other stuff if the patient is alive and we only want dead patients
-          // note that this skips ahead to the while check and doesn't automatically re-loop
-        }
+//        if (isAlive && onlyDeadPatients) {
+//          // rotate the seed so the next attempt gets a consistent but different one
+//          personSeed = new Random(personSeed).nextLong();
+//          continue;
+//          // skip the other stuff if the patient is alive and we only want dead patients
+//          // note that this skips ahead to the while check and doesn't automatically re-loop
+//        }
 
-        if (database != null) {
+        if (database != null && isAlive) {
           database.store(person);
         }
 
-        if (internalStore != null) {
-          internalStore.add(person);
-        }
-        
-        if (this.metrics != null) {
-          metrics.recordStats(person, time);
-        }
+//        if (internalStore != null) {
+//          internalStore.add(person);
+//        }
+//        
+//        if (this.metrics != null) {
+//          metrics.recordStats(person, time);
+//        }
 
         if (!this.logLevel.equals("none")) {
           writeToConsole(person, index, time, isAlive);
@@ -349,7 +351,7 @@ public class Generator {
 
         // TODO - export is DESTRUCTIVE when it filters out data
         // this means export must be the LAST THING done with the person
-        Exporter.export(person, time);
+//        Exporter.export(person, time);
       } while ((!isAlive && !onlyDeadPatients && this.options.overflow)
           || (isAlive && onlyDeadPatients));
       // if the patient is alive and we want only dead ones => loop & try again
