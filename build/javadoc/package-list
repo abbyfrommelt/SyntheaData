@@ -8,3 +8,4 @@ org.mitre.synthea.world.agents
 org.mitre.synthea.world.agents.behaviors
 org.mitre.synthea.world.concepts
 org.mitre.synthea.world.geography
+org.mitre.synthea.world.geography.quadtree
