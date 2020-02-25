@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.io.IOCase;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.mitre.synthea.datastore.DataStore;
+import org.mitre.synthea.editors.GeneticTestingEditor;
 import org.mitre.synthea.editors.GrowthDataErrorsEditor;
 import org.mitre.synthea.export.CDWExporter;
 import org.mitre.synthea.export.Exporter;
@@ -266,6 +267,11 @@ public class Generator {
         Config.get("growtherrors", "false"))) {
       HealthRecordEditors hrm = HealthRecordEditors.getInstance();
       hrm.registerEditor(new GrowthDataErrorsEditor());
+    }
+    if (Boolean.parseBoolean(
+        Config.get("genetictesting", "false"))) {
+      HealthRecordEditors hrm = HealthRecordEditors.getInstance();
+      hrm.registerEditor(new GeneticTestingEditor());
     }
   }
 
