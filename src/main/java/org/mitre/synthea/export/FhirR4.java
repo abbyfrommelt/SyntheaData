@@ -2376,7 +2376,7 @@ public class FhirR4 {
   private static Identifier generateIdentifier(String uid) {
     Identifier identifier = new Identifier();
     identifier.setUse(Identifier.IdentifierUse.OFFICIAL);
-    identifier.setSystem("urn:ietf:rfc:3986");
+    identifier.setSystem("urn:dicom:uid");
     identifier.setValue("urn:oid:" + uid);
     return identifier;
   }
