@@ -412,6 +412,39 @@ public class StateTest {
   }
 
   @Test
+  public void deathAfterEncounterEndDelay() throws Exception {
+    Module module = TestHelper.getFixture("death_after_encounter_end_delay.json");
+
+    // patient is alive
+    assertTrue(person.alive(time));
+
+    // run the encounter until the delay
+    module.process(person, time);
+
+    // patient is still alive now...
+    assertTrue(person.alive(time));
+
+    long step = Utilities.convertTime("days", 7);
+
+    // patient has one encounter...
+    assertTrue(person.hadPriorState("Encounter 1"));
+    assertEquals(1, person.record.encounters.size());
+
+    // next time step...
+    module.process(person, time + step);
+
+    // patient is dead
+    assertFalse(person.alive(time + step));
+
+    // patient still has one encounter...
+    assertTrue(person.hadPriorState("Encounter 1"));
+    assertEquals(1, person.record.encounters.size());
+
+    // encounter ends at the same time or before death
+    assertTrue(person.record.encounters.get(0).stop <= (long) person.attributes.get(Person.DEATHDATE));
+  }
+
+  @Test
   public void vitalsign() throws Exception {
     // Setup a mock to track calls to the patient record
     // In this case, the record shouldn't be called at all
