@@ -1,8 +1,10 @@
 
 org.mitre.synthea.datastore
+org.mitre.synthea.editors
 org.mitre.synthea.engine
 org.mitre.synthea.export
 org.mitre.synthea.helpers
+org.mitre.synthea.helpers.physiology
 org.mitre.synthea.modules
 org.mitre.synthea.world.agents
 org.mitre.synthea.world.agents.behaviors
