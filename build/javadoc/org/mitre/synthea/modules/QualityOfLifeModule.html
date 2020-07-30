@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":10,"i5":9};
+var methods = {"i0":9,"i1":10,"i2":9,"i3":9,"i4":9,"i5":10,"i6":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -112,7 +112,7 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd>java.io.Serializable</dd>
+<dd>java.io.Serializable, java.lang.Cloneable</dd>
 </dl>
 <hr>
 <br>
@@ -214,6 +214,12 @@ extends <a href="../../../../org/mitre/synthea/engine/Module.html" title="class 
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code><a href="../../../../org/mitre/synthea/engine/Module.html" title="class in org.mitre.synthea.engine">Module</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/QualityOfLifeModule.html#clone--">clone</a></span>()</code>
+<div class="block">Clone this module.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>protected static java.util.List&lt;<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Entry.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Entry</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/QualityOfLifeModule.html#conditionsInYear-java.util.List-long-long-">conditionsInYear</a></span>(java.util.List&lt;<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Entry.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Entry</a>&gt;&nbsp;conditions,
                 long&nbsp;start,
@@ -222,27 +228,27 @@ extends <a href="../../../../org/mitre/synthea/engine/Module.html" title="class 
  indicated by stop and stop.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/QualityOfLifeModule.html#inventoryAttributes-java.util.Map-">inventoryAttributes</a></span>(java.util.Map&lt;java.lang.String,<a href="../../../../org/mitre/synthea/helpers/Attributes.Inventory.html" title="class in org.mitre.synthea.helpers">Attributes.Inventory</a>&gt;&nbsp;attributes)</code>
 <div class="block">Populate the given attribute map with the list of attributes that this module
  reads/writes with example values when appropriate.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>protected static java.util.Map&lt;java.lang.String,org.mitre.synthea.modules.QualityOfLifeModule.DisabilityWeight&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/QualityOfLifeModule.html#loadDisabilityWeights--">loadDisabilityWeights</a></span>()</code>
 <div class="block">Load the disability weights from the gbd_disability_weights.csv file.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/QualityOfLifeModule.html#process-org.mitre.synthea.world.agents.Person-long-">process</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
        long&nbsp;time)</code>
 <div class="block">Process this Module with the given Person at the specified time within the simulation.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>protected static double</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/QualityOfLifeModule.html#weight-double-int-">weight</a></span>(double&nbsp;disabilityWeight,
       int&nbsp;age)</code>
@@ -262,7 +268,7 @@ extends <a href="../../../../org/mitre/synthea/engine/Module.html" title="class 
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -342,6 +348,21 @@ extends <a href="../../../../org/mitre/synthea/engine/Module.html" title="class 
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a name="clone--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>clone</h4>
+<pre>public&nbsp;<a href="../../../../org/mitre/synthea/engine/Module.html" title="class in org.mitre.synthea.engine">Module</a>&nbsp;clone()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../org/mitre/synthea/engine/Module.html#clone--">Module</a></code></span></div>
+<div class="block">Clone this module. Never provide the original.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../../../org/mitre/synthea/engine/Module.html#clone--">clone</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/mitre/synthea/engine/Module.html" title="class in org.mitre.synthea.engine">Module</a></code></dd>
+</dl>
+</li>
+</ul>
 <a name="process-org.mitre.synthea.world.agents.Person-long-">
 <!--   -->
 </a>

@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -112,7 +112,7 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd>java.io.Serializable</dd>
+<dd>java.io.Serializable, java.lang.Cloneable</dd>
 </dl>
 <hr>
 <br>
@@ -299,6 +299,12 @@ extends <a href="../../../../org/mitre/synthea/engine/Module.html" title="class 
 </td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code><a href="../../../../org/mitre/synthea/engine/Module.html" title="class in org.mitre.synthea.engine">Module</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/WeightLossModule.html#clone--">clone</a></span>()</code>
+<div class="block">Clone this module.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/WeightLossModule.html#firstFiveYearsOfManagement-org.mitre.synthea.world.agents.Person-long-">firstFiveYearsOfManagement</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
                           long&nbsp;time)</code>
@@ -306,7 +312,7 @@ extends <a href="../../../../org/mitre/synthea/engine/Module.html" title="class 
  management based on the WEIGHT_MANAGEMENT_START attribute.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/WeightLossModule.html#firstYearOfManagement-org.mitre.synthea.world.agents.Person-long-">firstYearOfManagement</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
                      long&nbsp;time)</code>
@@ -314,7 +320,7 @@ extends <a href="../../../../org/mitre/synthea/engine/Module.html" title="class 
  based on the WEIGHT_MANAGEMENT_START attribute.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/WeightLossModule.html#maintainBMIPercentile-org.mitre.synthea.world.agents.Person-long-">maintainBMIPercentile</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
                      long&nbsp;time)</code>
@@ -322,7 +328,7 @@ extends <a href="../../../../org/mitre/synthea/engine/Module.html" title="class 
  maintain their BMI until they reach age 20.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/WeightLossModule.html#manageFirstYearWeight-org.mitre.synthea.world.agents.Person-long-">manageFirstYearWeight</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
                      long&nbsp;time)</code>
@@ -330,7 +336,7 @@ extends <a href="../../../../org/mitre/synthea/engine/Module.html" title="class 
  of weight management.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/WeightLossModule.html#manageYearTwoThroughFive-org.mitre.synthea.world.agents.Person-long-">manageYearTwoThroughFive</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
                         long&nbsp;time)</code>
@@ -338,41 +344,41 @@ extends <a href="../../../../org/mitre/synthea/engine/Module.html" title="class 
  through year five of weight management.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/WeightLossModule.html#meetsWeightManagementThresholds-org.mitre.synthea.world.agents.Person-long-">meetsWeightManagementThresholds</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
                                long&nbsp;time)</code>
 <div class="block">Determines whether a person meets the thresholds for starting weight management.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/WeightLossModule.html#pediatricRegression-org.mitre.synthea.world.agents.Person-long-">pediatricRegression</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
                    long&nbsp;time)</code>
 <div class="block">This will regress a pediatric patient back to their BMI percentile.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/WeightLossModule.html#process-org.mitre.synthea.world.agents.Person-long-">process</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
        long&nbsp;time)</code>
 <div class="block">Process this Module with the given Person at the specified time within the simulation.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/WeightLossModule.html#startWeightManagement-org.mitre.synthea.world.agents.Person-long-">startWeightManagement</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
                      long&nbsp;time)</code>
 <div class="block">Starts active weight management for the person.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/WeightLossModule.html#stopWeightManagement-org.mitre.synthea.world.agents.Person-">stopWeightManagement</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person)</code>
 <div class="block">Person stops weight management.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>double</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/WeightLossModule.html#transitionRegression-org.mitre.synthea.world.agents.Person-long-">transitionRegression</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
                     long&nbsp;time)</code>
@@ -380,7 +386,7 @@ extends <a href="../../../../org/mitre/synthea/engine/Module.html" title="class 
  pediatric regression.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/modules/WeightLossModule.html#willStartWeightManagement-org.mitre.synthea.world.agents.Person-long-">willStartWeightManagement</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
                          long&nbsp;time)</code>
@@ -400,7 +406,7 @@ extends <a href="../../../../org/mitre/synthea/engine/Module.html" title="class 
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -640,6 +646,21 @@ extends <a href="../../../../org/mitre/synthea/engine/Module.html" title="class 
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a name="clone--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>clone</h4>
+<pre>public&nbsp;<a href="../../../../org/mitre/synthea/engine/Module.html" title="class in org.mitre.synthea.engine">Module</a>&nbsp;clone()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../org/mitre/synthea/engine/Module.html#clone--">Module</a></code></span></div>
+<div class="block">Clone this module. Never provide the original.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../../../org/mitre/synthea/engine/Module.html#clone--">clone</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/mitre/synthea/engine/Module.html" title="class in org.mitre.synthea.engine">Module</a></code></dd>
+</dl>
+</li>
+</ul>
 <a name="process-org.mitre.synthea.world.agents.Person-long-">
 <!--   -->
 </a>

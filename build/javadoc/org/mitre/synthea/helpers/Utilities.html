@@ -259,7 +259,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i13" class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/helpers/Utilities.html#randomDicomUid-int-int-">randomDicomUid</a></span>(int&nbsp;seriesNo,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/helpers/Utilities.html#randomDicomUid-org.mitre.synthea.helpers.RandomNumberGenerator-long-int-int-">randomDicomUid</a></span>(<a href="../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random,
+              long&nbsp;time,
+              int&nbsp;seriesNo,
               int&nbsp;instanceNo)</code>
 <div class="block">Generate a random DICOM UID to uniquely identify an ImagingStudy, Series, or Instance.</div>
 </td>
@@ -542,13 +544,15 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a name="randomDicomUid-int-int-">
+<a name="randomDicomUid-org.mitre.synthea.helpers.RandomNumberGenerator-long-int-int-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>randomDicomUid</h4>
-<pre>public static&nbsp;java.lang.String&nbsp;randomDicomUid(int&nbsp;seriesNo,
+<pre>public static&nbsp;java.lang.String&nbsp;randomDicomUid(<a href="../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random,
+                                              long&nbsp;time,
+                                              int&nbsp;seriesNo,
                                               int&nbsp;instanceNo)</pre>
 <div class="block">Generate a random DICOM UID to uniquely identify an ImagingStudy, Series, or Instance.
  Optionally add series and/or instance numbers to the UID to enhance its uniqueness.

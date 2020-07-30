@@ -287,9 +287,8 @@ implements java.io.Serializable</pre>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>double</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/mitre/synthea/world/concepts/PediatricGrowthTrajectory.html#currentBMI-org.mitre.synthea.world.agents.Person-long-org.apache.commons.math3.random.JDKRandomGenerator-">currentBMI</a></span>(<a href="../../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
-          long&nbsp;time,
-          org.apache.commons.math3.random.JDKRandomGenerator&nbsp;randomGenerator)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/mitre/synthea/world/concepts/PediatricGrowthTrajectory.html#currentBMI-org.mitre.synthea.world.agents.Person-long-">currentBMI</a></span>(<a href="../../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
+          long&nbsp;time)</code>
 <div class="block">Provides the BMI for the individual at the supplied time.</div>
 </td>
 </tr>
@@ -304,9 +303,8 @@ implements java.io.Serializable</pre>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/mitre/synthea/world/concepts/PediatricGrowthTrajectory.html#generateNextYearBMI-org.mitre.synthea.world.agents.Person-long-org.apache.commons.math3.random.JDKRandomGenerator-">generateNextYearBMI</a></span>(<a href="../../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
-                   long&nbsp;time,
-                   org.apache.commons.math3.random.JDKRandomGenerator&nbsp;randomGenerator)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/mitre/synthea/world/concepts/PediatricGrowthTrajectory.html#generateNextYearBMI-org.mitre.synthea.world.agents.Person-long-">generateNextYearBMI</a></span>(<a href="../../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
+                   long&nbsp;time)</code>
 <div class="block">Generates a BMI for the person one year later.</div>
 </td>
 </tr>
@@ -505,15 +503,14 @@ implements java.io.Serializable</pre>
 </dl>
 </li>
 </ul>
-<a name="generateNextYearBMI-org.mitre.synthea.world.agents.Person-long-org.apache.commons.math3.random.JDKRandomGenerator-">
+<a name="generateNextYearBMI-org.mitre.synthea.world.agents.Person-long-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>generateNextYearBMI</h4>
 <pre>public&nbsp;void&nbsp;generateNextYearBMI(<a href="../../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
-                                long&nbsp;time,
-                                org.apache.commons.math3.random.JDKRandomGenerator&nbsp;randomGenerator)</pre>
+                                long&nbsp;time)</pre>
 <div class="block">Generates a BMI for the person one year later. BMIs are generated based on correlations
  measured between years of age and differences in mean BMI. This takes into special
  consideration people at or above the 95th percentile, as the growth charts start to break down.</div>
@@ -521,7 +518,6 @@ implements java.io.Serializable</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>person</code> - to generate the new BMI for</dd>
 <dd><code>time</code> - current time</dd>
-<dd><code>randomGenerator</code> - Apache Commons Math random thingy needed to sample a value</dd>
 </dl>
 </li>
 </ul>
@@ -631,15 +627,14 @@ implements java.io.Serializable</pre>
 </dl>
 </li>
 </ul>
-<a name="currentBMI-org.mitre.synthea.world.agents.Person-long-org.apache.commons.math3.random.JDKRandomGenerator-">
+<a name="currentBMI-org.mitre.synthea.world.agents.Person-long-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>currentBMI</h4>
 <pre>public&nbsp;double&nbsp;currentBMI(<a href="../../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
-                         long&nbsp;time,
-                         org.apache.commons.math3.random.JDKRandomGenerator&nbsp;randomGenerator)</pre>
+                         long&nbsp;time)</pre>
 <div class="block">Provides the BMI for the individual at the supplied time. If the time provided is beyond the
  current length of the trajectory, it will generate a new point in the trajectory, if that point
  will happen before the person is 20 years old.</div>
@@ -647,7 +642,6 @@ implements java.io.Serializable</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>person</code> - to get the BMI for</dd>
 <dd><code>time</code> - the time at which you want the BMI</dd>
-<dd><code>randomGenerator</code> - Apache Commons Math random thingy needed to sample a value</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a BMI value</dd>
 </dl>

@@ -277,8 +277,8 @@ implements <a href="../../../../../org/mitre/synthea/world/geography/quadtree/Qu
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="../../../../../org/mitre/synthea/world/agents/Clinician.html" title="class in org.mitre.synthea.world.agents">Clinician</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/mitre/synthea/world/agents/Provider.html#chooseClinicianList-java.lang.String-java.util.Random-">chooseClinicianList</a></span>(java.lang.String&nbsp;specialty,
-                   java.util.Random&nbsp;random)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/mitre/synthea/world/agents/Provider.html#chooseClinicianList-java.lang.String-org.mitre.synthea.helpers.RandomNumberGenerator-">chooseClinicianList</a></span>(java.lang.String&nbsp;specialty,
+                   <a href="../../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;rand)</code>
 <div class="block">Randomly chooses a clinician out of a given clinician list.</div>
 </td>
 </tr>
@@ -868,19 +868,19 @@ implements <a href="../../../../../org/mitre/synthea/world/geography/quadtree/Qu
 </dl>
 </li>
 </ul>
-<a name="chooseClinicianList-java.lang.String-java.util.Random-">
+<a name="chooseClinicianList-java.lang.String-org.mitre.synthea.helpers.RandomNumberGenerator-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>chooseClinicianList</h4>
 <pre>public&nbsp;<a href="../../../../../org/mitre/synthea/world/agents/Clinician.html" title="class in org.mitre.synthea.world.agents">Clinician</a>&nbsp;chooseClinicianList(java.lang.String&nbsp;specialty,
-                                     java.util.Random&nbsp;random)</pre>
+                                     <a href="../../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;rand)</pre>
 <div class="block">Randomly chooses a clinician out of a given clinician list.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>specialty</code> - - the specialty to choose from</dd>
-<dd><code>random</code> - - random to help choose clinician</dd>
+<dd><code>specialty</code> - - the specialty to choose from.</dd>
+<dd><code>rand</code> - - random number generator.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>A clinician with the required specialty.</dd>
 </dl>

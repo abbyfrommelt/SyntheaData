@@ -170,14 +170,18 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/engine/Generator.html#options">options</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/engine/Generator.html#referenceTime">referenceTime</a></span></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>java.util.Map&lt;java.lang.String,java.util.concurrent.atomic.AtomicInteger&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/engine/Generator.html#stats">stats</a></span></code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>long</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/engine/Generator.html#stop">stop</a></span></code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>long</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/engine/Generator.html#timestep">timestep</a></span></code>&nbsp;</td>
 </tr>
@@ -261,7 +265,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.util.Map&lt;java.lang.String,java.lang.Object&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/engine/Generator.html#randomDemographics-java.util.Random-">randomDemographics</a></span>(java.util.Random&nbsp;seed)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/engine/Generator.html#randomDemographics-java.util.Random-">randomDemographics</a></span>(java.util.Random&nbsp;random)</code>
 <div class="block">Create a set of random demographics.</div>
 </td>
 </tr>
@@ -348,6 +352,15 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>stop</h4>
 <pre>public&nbsp;long stop</pre>
+</li>
+</ul>
+<a name="referenceTime">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>referenceTime</h4>
+<pre>public&nbsp;long referenceTime</pre>
 </li>
 </ul>
 <a name="stats">
@@ -577,11 +590,11 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>randomDemographics</h4>
-<pre>public&nbsp;java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;randomDemographics(java.util.Random&nbsp;seed)</pre>
+<pre>public&nbsp;java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;randomDemographics(java.util.Random&nbsp;random)</pre>
 <div class="block">Create a set of random demographics.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>seed</code> - The random seed to use</dd>
+<dd><code>random</code> - The random number generator to use.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>demographics</dd>
 </dl>

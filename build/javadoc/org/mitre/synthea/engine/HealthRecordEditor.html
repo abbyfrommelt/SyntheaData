@@ -139,10 +139,9 @@ var activeTableTab = "activeTableTab";
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/engine/HealthRecordEditor.html#process-org.mitre.synthea.world.agents.Person-java.util.List-long-java.util.Random-">process</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/engine/HealthRecordEditor.html#process-org.mitre.synthea.world.agents.Person-java.util.List-long-">process</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
        java.util.List&lt;<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Encounter.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Encounter</a>&gt;&nbsp;encounters,
-       long&nbsp;time,
-       java.util.Random&nbsp;random)</code>
+       long&nbsp;time)</code>
 <div class="block">Perform the operation on the HealthRecord.Encounter(s).</div>
 </td>
 </tr>
@@ -192,7 +191,7 @@ var activeTableTab = "activeTableTab";
 </dl>
 </li>
 </ul>
-<a name="process-org.mitre.synthea.world.agents.Person-java.util.List-long-java.util.Random-">
+<a name="process-org.mitre.synthea.world.agents.Person-java.util.List-long-">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -200,8 +199,7 @@ var activeTableTab = "activeTableTab";
 <h4>process</h4>
 <pre>void&nbsp;process(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
              java.util.List&lt;<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Encounter.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Encounter</a>&gt;&nbsp;encounters,
-             long&nbsp;time,
-             java.util.Random&nbsp;random)</pre>
+             long&nbsp;time)</pre>
 <div class="block">Perform the operation on the HealthRecord.Encounter(s). HealthRecordEditors do not need to
  modify the HealthRecord.Encounters(s). HealthRecordModules SHOULD NOT modify the Person. If the
  person must be modified, then the desired functionality should be implemented as a regular
@@ -211,7 +209,6 @@ var activeTableTab = "activeTableTab";
 <dd><code>person</code> - The Synthea person that will have their HealthRecord edited</dd>
 <dd><code>encounters</code> - The encounters that took place during the last time step of the simulation</dd>
 <dd><code>time</code> - The current time in the simulation</dd>
-<dd><code>random</code> - Random generator that should be used when randomness is needed</dd>
 </dl>
 </li>
 </ul>

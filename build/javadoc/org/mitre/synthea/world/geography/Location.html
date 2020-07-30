@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":9,"i3":9,"i4":10,"i5":9,"i6":9,"i7":10,"i8":10,"i9":9,"i10":10,"i11":10,"i12":10,"i13":10};
+var methods = {"i0":10,"i1":10,"i2":9,"i3":9,"i4":10,"i5":9,"i6":9,"i7":10,"i8":10,"i9":9,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -223,8 +223,8 @@ implements java.io.Serializable</pre>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/mitre/synthea/world/geography/Location.html#getZipCode-java.lang.String-org.mitre.synthea.world.agents.Person-">getZipCode</a></span>(java.lang.String&nbsp;cityName,
-          <a href="../../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/mitre/synthea/world/geography/Location.html#getZipCode-java.lang.String-org.mitre.synthea.helpers.RandomNumberGenerator-">getZipCode</a></span>(java.lang.String&nbsp;cityName,
+          <a href="../../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random)</code>
 <div class="block">Get the zip code for the given city name.</div>
 </td>
 </tr>
@@ -242,13 +242,13 @@ implements java.io.Serializable</pre>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>java.lang.String[]</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/mitre/synthea/world/geography/Location.html#randomBirthPlace-java.util.Random-">randomBirthPlace</a></span>(java.util.Random&nbsp;random)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/mitre/synthea/world/geography/Location.html#randomBirthPlace-org.mitre.synthea.helpers.RandomNumberGenerator-">randomBirthPlace</a></span>(<a href="../../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random)</code>
 <div class="block">Pick a random birth place, weighted by population.</div>
 </td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>java.lang.String[]</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/mitre/synthea/world/geography/Location.html#randomBirthplaceByLanguage-java.util.Random-java.lang.String-">randomBirthplaceByLanguage</a></span>(java.util.Random&nbsp;random,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/mitre/synthea/world/geography/Location.html#randomBirthplaceByLanguage-org.mitre.synthea.helpers.RandomNumberGenerator-java.lang.String-">randomBirthplaceByLanguage</a></span>(<a href="../../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random,
                           java.lang.String&nbsp;language)</code>
 <div class="block">Method which returns a city from the foreignPlacesOfBirth map if the map contains values
  for an language.</div>
@@ -257,12 +257,18 @@ implements java.io.Serializable</pre>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code><a href="../../../../../org/mitre/synthea/world/geography/Demographics.html" title="class in org.mitre.synthea.world.geography">Demographics</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/mitre/synthea/world/geography/Location.html#randomCity-java.util.Random-">randomCity</a></span>(java.util.Random&nbsp;random)</code>
-<div class="block">Pick the name of a random city from the current "world".</div>
+<div class="block">Pick the name of a random city from the current "world"?</div>
 </td>
 </tr>
 <tr id="i13" class="rowColor">
+<td class="colFirst"><code><a href="../../../../../org/mitre/synthea/world/geography/Demographics.html" title="class in org.mitre.synthea.world.geography">Demographics</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/mitre/synthea/world/geography/Location.html#randomCity-org.mitre.synthea.helpers.RandomNumberGenerator-">randomCity</a></span>(<a href="../../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random)</code>
+<div class="block">Pick the name of a random city from the current "world".</div>
+</td>
+</tr>
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/mitre/synthea/world/geography/Location.html#randomCityName-java.util.Random-">randomCityName</a></span>(java.util.Random&nbsp;random)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/mitre/synthea/world/geography/Location.html#randomCityName-org.mitre.synthea.helpers.RandomNumberGenerator-">randomCityName</a></span>(<a href="../../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random)</code>
 <div class="block">Pick a random city name, weighted by population.</div>
 </td>
 </tr>
@@ -340,21 +346,21 @@ implements java.io.Serializable</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="getZipCode-java.lang.String-org.mitre.synthea.world.agents.Person-">
+<a name="getZipCode-java.lang.String-org.mitre.synthea.helpers.RandomNumberGenerator-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getZipCode</h4>
 <pre>public&nbsp;java.lang.String&nbsp;getZipCode(java.lang.String&nbsp;cityName,
-                                   <a href="../../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person)</pre>
+                                   <a href="../../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random)</pre>
 <div class="block">Get the zip code for the given city name. 
  If a city has more than one zip code, this picks a random one.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>cityName</code> - Name of the city</dd>
-<dd><code>person</code> - Used for a source of repeatable randomness when selecting a zipcode when multiple
-               exist for a location</dd>
+<dd><code>random</code> - Used for a source of repeatable randomness when selecting
+               a zipcode when multiple exist for a location</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a zip code for the given city</dd>
 </dl>
@@ -385,6 +391,23 @@ implements java.io.Serializable</pre>
 <pre>public&nbsp;long&nbsp;getPopulation(java.lang.String&nbsp;cityName)</pre>
 </li>
 </ul>
+<a name="randomCity-org.mitre.synthea.helpers.RandomNumberGenerator-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>randomCity</h4>
+<pre>public&nbsp;<a href="../../../../../org/mitre/synthea/world/geography/Demographics.html" title="class in org.mitre.synthea.world.geography">Demographics</a>&nbsp;randomCity(<a href="../../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random)</pre>
+<div class="block">Pick the name of a random city from the current "world".
+ If only one city was selected, this will return that one city.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>random</code> - The source of randomness.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Demographics of a random city.</dd>
+</dl>
+</li>
+</ul>
 <a name="randomCity-java.util.Random-">
 <!--   -->
 </a>
@@ -392,55 +415,54 @@ implements java.io.Serializable</pre>
 <li class="blockList">
 <h4>randomCity</h4>
 <pre>public&nbsp;<a href="../../../../../org/mitre/synthea/world/geography/Demographics.html" title="class in org.mitre.synthea.world.geography">Demographics</a>&nbsp;randomCity(java.util.Random&nbsp;random)</pre>
-<div class="block">Pick the name of a random city from the current "world".
- If only one city was selected, this will return that one city.</div>
+<div class="block">Pick the name of a random city from the current "world"?</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>random</code> - Source of randomness</dd>
+<dd><code>random</code> - The source of randomness.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Demographics of a random city.</dd>
 </dl>
 </li>
 </ul>
-<a name="randomCityName-java.util.Random-">
+<a name="randomCityName-org.mitre.synthea.helpers.RandomNumberGenerator-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>randomCityName</h4>
-<pre>public&nbsp;java.lang.String&nbsp;randomCityName(java.util.Random&nbsp;random)</pre>
+<pre>public&nbsp;java.lang.String&nbsp;randomCityName(<a href="../../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random)</pre>
 <div class="block">Pick a random city name, weighted by population.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>random</code> - Source of randomness</dd>
+<dd><code>random</code> - the source of randomness</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a city name</dd>
 </dl>
 </li>
 </ul>
-<a name="randomBirthPlace-java.util.Random-">
+<a name="randomBirthPlace-org.mitre.synthea.helpers.RandomNumberGenerator-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>randomBirthPlace</h4>
-<pre>public&nbsp;java.lang.String[]&nbsp;randomBirthPlace(java.util.Random&nbsp;random)</pre>
+<pre>public&nbsp;java.lang.String[]&nbsp;randomBirthPlace(<a href="../../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random)</pre>
 <div class="block">Pick a random birth place, weighted by population.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>random</code> - Source of randomness</dd>
+<dd><code>random</code> - the source of randomness</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Array of Strings: [city, state, country, "city, state, country"]</dd>
 </dl>
 </li>
 </ul>
-<a name="randomBirthplaceByLanguage-java.util.Random-java.lang.String-">
+<a name="randomBirthplaceByLanguage-org.mitre.synthea.helpers.RandomNumberGenerator-java.lang.String-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>randomBirthplaceByLanguage</h4>
-<pre>public&nbsp;java.lang.String[]&nbsp;randomBirthplaceByLanguage(java.util.Random&nbsp;random,
+<pre>public&nbsp;java.lang.String[]&nbsp;randomBirthplaceByLanguage(<a href="../../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random,
                                                      java.lang.String&nbsp;language)</pre>
 <div class="block">Method which returns a city from the foreignPlacesOfBirth map if the map contains values
  for an language.
@@ -448,7 +470,7 @@ implements java.io.Serializable</pre>
  randomCityName().</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>random</code> - the Random to base our city selection on</dd>
+<dd><code>random</code> - the source of randomness</dd>
 <dd><code>language</code> - the language to look for cities in</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>A String representing the place of birth</dd>

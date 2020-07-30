@@ -130,11 +130,10 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/engine/HealthRecordEditors.html#executeAll-org.mitre.synthea.world.agents.Person-org.mitre.synthea.world.concepts.HealthRecord-long-long-java.util.Random-">executeAll</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/engine/HealthRecordEditors.html#executeAll-org.mitre.synthea.world.agents.Person-org.mitre.synthea.world.concepts.HealthRecord-long-long-">executeAll</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
           <a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.html" title="class in org.mitre.synthea.world.concepts">HealthRecord</a>&nbsp;record,
           long&nbsp;time,
-          long&nbsp;step,
-          java.util.Random&nbsp;random)</code>
+          long&nbsp;step)</code>
 <div class="block">Runs all of the registered implementations of HealthRecordEditor.</div>
 </td>
 </tr>
@@ -206,7 +205,7 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a name="executeAll-org.mitre.synthea.world.agents.Person-org.mitre.synthea.world.concepts.HealthRecord-long-long-java.util.Random-">
+<a name="executeAll-org.mitre.synthea.world.agents.Person-org.mitre.synthea.world.concepts.HealthRecord-long-long-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -215,8 +214,7 @@ extends java.lang.Object</pre>
 <pre>public&nbsp;void&nbsp;executeAll(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
                        <a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.html" title="class in org.mitre.synthea.world.concepts">HealthRecord</a>&nbsp;record,
                        long&nbsp;time,
-                       long&nbsp;step,
-                       java.util.Random&nbsp;random)</pre>
+                       long&nbsp;step)</pre>
 <div class="block">Runs all of the registered implementations of HealthRecordEditor. Will first check to see if
  the editor should be run by invoking... shouldRun. If it should run, will call process on
  the editor.
@@ -225,11 +223,10 @@ extends java.lang.Object</pre>
  </p></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>person</code> - The Person to run on</dd>
+<dd><code>person</code> - The Person to run on, and the source of randomness</dd>
 <dd><code>record</code> - The HealthRecord to potentially modify</dd>
 <dd><code>time</code> - The current time in the simulation</dd>
 <dd><code>step</code> - The time step for the simulation</dd>
-<dd><code>random</code> - The source of randomness that modules should use</dd>
 </dl>
 </li>
 </ul>

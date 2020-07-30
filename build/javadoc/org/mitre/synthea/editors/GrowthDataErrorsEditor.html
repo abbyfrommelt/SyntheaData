@@ -229,8 +229,8 @@ implements <a href="../../../../org/mitre/synthea/engine/HealthRecordEditor.html
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/editors/GrowthDataErrorsEditor.html#introduceHeightAbsoluteError-org.mitre.synthea.world.concepts.HealthRecord.Encounter-java.util.Random-">introduceHeightAbsoluteError</a></span>(<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Encounter.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Encounter</a>&nbsp;encounter,
-                            java.util.Random&nbsp;random)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/editors/GrowthDataErrorsEditor.html#introduceHeightAbsoluteError-org.mitre.synthea.world.concepts.HealthRecord.Encounter-org.mitre.synthea.helpers.RandomNumberGenerator-">introduceHeightAbsoluteError</a></span>(<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Encounter.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Encounter</a>&nbsp;encounter,
+                            <a href="../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random)</code>
 <div class="block">Reduce the height observation by 3 to 6 cm.</div>
 </td>
 </tr>
@@ -243,8 +243,8 @@ implements <a href="../../../../org/mitre/synthea/engine/HealthRecordEditor.html
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/editors/GrowthDataErrorsEditor.html#introduceHeightDuplicateError-org.mitre.synthea.world.concepts.HealthRecord.Encounter-java.util.Random-">introduceHeightDuplicateError</a></span>(<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Encounter.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Encounter</a>&nbsp;encounter,
-                             java.util.Random&nbsp;random)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/editors/GrowthDataErrorsEditor.html#introduceHeightDuplicateError-org.mitre.synthea.world.concepts.HealthRecord.Encounter-org.mitre.synthea.helpers.RandomNumberGenerator-">introduceHeightDuplicateError</a></span>(<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Encounter.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Encounter</a>&nbsp;encounter,
+                             <a href="../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random)</code>
 <div class="block">Create a duplicate height observation in the encounter that is off slightly.</div>
 </td>
 </tr>
@@ -282,8 +282,8 @@ implements <a href="../../../../org/mitre/synthea/engine/HealthRecordEditor.html
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/editors/GrowthDataErrorsEditor.html#introduceWeightDuplicateError-org.mitre.synthea.world.concepts.HealthRecord.Encounter-java.util.Random-">introduceWeightDuplicateError</a></span>(<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Encounter.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Encounter</a>&nbsp;encounter,
-                             java.util.Random&nbsp;random)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/editors/GrowthDataErrorsEditor.html#introduceWeightDuplicateError-org.mitre.synthea.world.concepts.HealthRecord.Encounter-org.mitre.synthea.helpers.RandomNumberGenerator-">introduceWeightDuplicateError</a></span>(<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Encounter.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Encounter</a>&nbsp;encounter,
+                             <a href="../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random)</code>
 <div class="block">Create a duplicate weight observation in the encounter that is off slightly.</div>
 </td>
 </tr>
@@ -307,10 +307,9 @@ implements <a href="../../../../org/mitre/synthea/engine/HealthRecordEditor.html
 </tr>
 <tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/editors/GrowthDataErrorsEditor.html#process-org.mitre.synthea.world.agents.Person-java.util.List-long-java.util.Random-">process</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/editors/GrowthDataErrorsEditor.html#process-org.mitre.synthea.world.agents.Person-java.util.List-long-">process</a></span>(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
        java.util.List&lt;<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Encounter.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Encounter</a>&gt;&nbsp;encounters,
-       long&nbsp;time,
-       java.util.Random&nbsp;random)</code>
+       long&nbsp;time)</code>
 <div class="block">Potentially mess up heights and weights in the encounters.</div>
 </td>
 </tr>
@@ -463,7 +462,7 @@ implements <a href="../../../../org/mitre/synthea/engine/HealthRecordEditor.html
 </dl>
 </li>
 </ul>
-<a name="process-org.mitre.synthea.world.agents.Person-java.util.List-long-java.util.Random-">
+<a name="process-org.mitre.synthea.world.agents.Person-java.util.List-long-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -471,17 +470,15 @@ implements <a href="../../../../org/mitre/synthea/engine/HealthRecordEditor.html
 <h4>process</h4>
 <pre>public&nbsp;void&nbsp;process(<a href="../../../../org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
                     java.util.List&lt;<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Encounter.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Encounter</a>&gt;&nbsp;encounters,
-                    long&nbsp;time,
-                    java.util.Random&nbsp;random)</pre>
+                    long&nbsp;time)</pre>
 <div class="block">Potentially mess up heights and weights in the encounters.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../org/mitre/synthea/engine/HealthRecordEditor.html#process-org.mitre.synthea.world.agents.Person-java.util.List-long-java.util.Random-">process</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/mitre/synthea/engine/HealthRecordEditor.html" title="interface in org.mitre.synthea.engine">HealthRecordEditor</a></code></dd>
+<dd><code><a href="../../../../org/mitre/synthea/engine/HealthRecordEditor.html#process-org.mitre.synthea.world.agents.Person-java.util.List-long-">process</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/mitre/synthea/engine/HealthRecordEditor.html" title="interface in org.mitre.synthea.engine">HealthRecordEditor</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>person</code> - The Synthea person to check on whether the module should be run</dd>
 <dd><code>encounters</code> - The encounters that took place during the last time step of the simulation</dd>
 <dd><code>time</code> - The current time in the simulation</dd>
-<dd><code>random</code> - Random generator that should be used when randomness is needed</dd>
 </dl>
 </li>
 </ul>
@@ -589,14 +586,14 @@ implements <a href="../../../../org/mitre/synthea/engine/HealthRecordEditor.html
 </dl>
 </li>
 </ul>
-<a name="introduceHeightAbsoluteError-org.mitre.synthea.world.concepts.HealthRecord.Encounter-java.util.Random-">
+<a name="introduceHeightAbsoluteError-org.mitre.synthea.world.concepts.HealthRecord.Encounter-org.mitre.synthea.helpers.RandomNumberGenerator-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>introduceHeightAbsoluteError</h4>
 <pre>public static&nbsp;void&nbsp;introduceHeightAbsoluteError(<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Encounter.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Encounter</a>&nbsp;encounter,
-                                                java.util.Random&nbsp;random)</pre>
+                                                <a href="../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random)</pre>
 <div class="block">Reduce the height observation by 3 to 6 cm. It looks like someone forgot to take off their
  shoes before getting measured.</div>
 <dl>
@@ -605,14 +602,14 @@ implements <a href="../../../../org/mitre/synthea/engine/HealthRecordEditor.html
 </dl>
 </li>
 </ul>
-<a name="introduceWeightDuplicateError-org.mitre.synthea.world.concepts.HealthRecord.Encounter-java.util.Random-">
+<a name="introduceWeightDuplicateError-org.mitre.synthea.world.concepts.HealthRecord.Encounter-org.mitre.synthea.helpers.RandomNumberGenerator-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>introduceWeightDuplicateError</h4>
 <pre>public static&nbsp;void&nbsp;introduceWeightDuplicateError(<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Encounter.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Encounter</a>&nbsp;encounter,
-                                                 java.util.Random&nbsp;random)</pre>
+                                                 <a href="../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random)</pre>
 <div class="block">Create a duplicate weight observation in the encounter that is off slightly.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -620,14 +617,14 @@ implements <a href="../../../../org/mitre/synthea/engine/HealthRecordEditor.html
 </dl>
 </li>
 </ul>
-<a name="introduceHeightDuplicateError-org.mitre.synthea.world.concepts.HealthRecord.Encounter-java.util.Random-">
+<a name="introduceHeightDuplicateError-org.mitre.synthea.world.concepts.HealthRecord.Encounter-org.mitre.synthea.helpers.RandomNumberGenerator-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>introduceHeightDuplicateError</h4>
 <pre>public static&nbsp;void&nbsp;introduceHeightDuplicateError(<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Encounter.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Encounter</a>&nbsp;encounter,
-                                                 java.util.Random&nbsp;random)</pre>
+                                                 <a href="../../../../org/mitre/synthea/helpers/RandomNumberGenerator.html" title="interface in org.mitre.synthea.helpers">RandomNumberGenerator</a>&nbsp;random)</pre>
 <div class="block">Create a duplicate height observation in the encounter that is off slightly.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
