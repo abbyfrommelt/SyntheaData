@@ -1301,7 +1301,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <section class="serializedClassDetails"><a id="org.mitre.synthea.engine.State.Delay">
 <!--   -->
 </a>
-<h3>Class <a href="org/mitre/synthea/engine/State.Delay.html" title="class in org.mitre.synthea.engine">org.mitre.synthea.engine.State.Delay</a> extends <a href="org/mitre/synthea/engine/State.html" title="class in org.mitre.synthea.engine">State</a> implements Serializable</h3>
+<h3>Class <a href="org/mitre/synthea/engine/State.Delay.html" title="class in org.mitre.synthea.engine">org.mitre.synthea.engine.State.Delay</a> extends <a href="org/mitre/synthea/engine/State.Delayable.html" title="class in org.mitre.synthea.engine">State.Delayable</a> implements Serializable</h3>
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
@@ -1312,12 +1312,28 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre><a href="org/mitre/synthea/engine/Components.ExactWithUnit.html" title="class in org.mitre.synthea.engine">Components.ExactWithUnit</a>&lt;java.lang.Long&gt; exact</pre>
 </li>
 <li class="blockList">
-<h5>next</h5>
-<pre>java.lang.Long next</pre>
-</li>
-<li class="blockList">
 <h5>range</h5>
 <pre><a href="org/mitre/synthea/engine/Components.RangeWithUnit.html" title="class in org.mitre.synthea.engine">Components.RangeWithUnit</a>&lt;java.lang.Long&gt; range</pre>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li class="blockList">
+<section class="serializedClassDetails"><a id="org.mitre.synthea.engine.State.Delayable">
+<!--   -->
+</a>
+<h3>Class <a href="org/mitre/synthea/engine/State.Delayable.html" title="class in org.mitre.synthea.engine">org.mitre.synthea.engine.State.Delayable</a> extends <a href="org/mitre/synthea/engine/State.html" title="class in org.mitre.synthea.engine">State</a> implements Serializable</h3>
+<ul class="blockList">
+<li class="blockList">
+<section class="detail">
+<h4>Serialized Fields</h4>
+<ul class="blockList">
+<li class="blockList">
+<h5>next</h5>
+<pre>java.lang.Long next</pre>
 </li>
 </ul>
 </section>
@@ -1743,7 +1759,7 @@ java.io.IOException</span></div>
 <section class="serializedClassDetails"><a id="org.mitre.synthea.engine.State.Procedure">
 <!--   -->
 </a>
-<h3>Class <a href="org/mitre/synthea/engine/State.Procedure.html" title="class in org.mitre.synthea.engine">org.mitre.synthea.engine.State.Procedure</a> extends <a href="org/mitre/synthea/engine/State.html" title="class in org.mitre.synthea.engine">State</a> implements Serializable</h3>
+<h3>Class <a href="org/mitre/synthea/engine/State.Procedure.html" title="class in org.mitre.synthea.engine">org.mitre.synthea.engine.State.Procedure</a> extends <a href="org/mitre/synthea/engine/State.Delayable.html" title="class in org.mitre.synthea.engine">State.Delayable</a> implements Serializable</h3>
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
@@ -1764,6 +1780,10 @@ java.io.IOException</span></div>
 <li class="blockList">
 <h5>reason</h5>
 <pre>java.lang.String reason</pre>
+</li>
+<li class="blockList">
+<h5>stop</h5>
+<pre>java.lang.Long stop</pre>
 </li>
 </ul>
 </section>

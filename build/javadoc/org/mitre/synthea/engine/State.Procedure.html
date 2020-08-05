@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -93,7 +93,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="contentContainer">
 <div class="inheritance" title="Inheritance Tree">java.lang.Object
 <div class="inheritance"><a href="State.html" title="class in org.mitre.synthea.engine">org.mitre.synthea.engine.State</a>
+<div class="inheritance"><a href="State.Delayable.html" title="class in org.mitre.synthea.engine">org.mitre.synthea.engine.State.Delayable</a>
 <div class="inheritance">org.mitre.synthea.engine.State.Procedure</div>
+</div>
 </div>
 </div>
 <section class="description">
@@ -107,7 +109,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <hr>
 <pre>public static class <span class="typeNameLabel">State.Procedure</span>
-extends <a href="State.html" title="class in org.mitre.synthea.engine">State</a></pre>
+extends <a href="State.Delayable.html" title="class in org.mitre.synthea.engine">State.Delayable</a></pre>
 <div class="block">The Procedure state type indicates a point in the module where a procedure should be performed.
  Procedure states may only be processed during an Encounter, and so must occur after the target
  Encounter state and before the EncounterEnd. See the Encounter section above for more details.
@@ -130,7 +132,7 @@ extends <a href="State.html" title="class in org.mitre.synthea.engine">State</a>
 <h2>Nested classes/interfaces inherited from class&nbsp;org.mitre.synthea.engine.<a href="State.html" title="class in org.mitre.synthea.engine">State</a></h2>
 <a id="nested.classes.inherited.from.class.org.mitre.synthea.engine.State">
 <!--   -->
-</a><code><a href="State.AllergyEnd.html" title="class in org.mitre.synthea.engine">State.AllergyEnd</a>, <a href="State.AllergyOnset.html" title="class in org.mitre.synthea.engine">State.AllergyOnset</a>, <a href="State.CallSubmodule.html" title="class in org.mitre.synthea.engine">State.CallSubmodule</a>, <a href="State.CarePlanEnd.html" title="class in org.mitre.synthea.engine">State.CarePlanEnd</a>, <a href="State.CarePlanStart.html" title="class in org.mitre.synthea.engine">State.CarePlanStart</a>, <a href="State.ConditionEnd.html" title="class in org.mitre.synthea.engine">State.ConditionEnd</a>, <a href="State.ConditionOnset.html" title="class in org.mitre.synthea.engine">State.ConditionOnset</a>, <a href="State.Counter.html" title="class in org.mitre.synthea.engine">State.Counter</a>, <a href="State.Death.html" title="class in org.mitre.synthea.engine">State.Death</a>, <a href="State.Delay.html" title="class in org.mitre.synthea.engine">State.Delay</a>, <a href="State.Device.html" title="class in org.mitre.synthea.engine">State.Device</a>, <a href="State.DeviceEnd.html" title="class in org.mitre.synthea.engine">State.DeviceEnd</a>, <a href="State.DiagnosticReport.html" title="class in org.mitre.synthea.engine">State.DiagnosticReport</a>, <a href="State.Encounter.html" title="class in org.mitre.synthea.engine">State.Encounter</a>, <a href="State.EncounterEnd.html" title="class in org.mitre.synthea.engine">State.EncounterEnd</a>, <a href="State.Guard.html" title="class in org.mitre.synthea.engine">State.Guard</a>, <a href="State.ImagingStudy.html" title="class in org.mitre.synthea.engine">State.ImagingStudy</a>, <a href="State.Initial.html" title="class in org.mitre.synthea.engine">State.Initial</a>, <a href="State.MedicationEnd.html" title="class in org.mitre.synthea.engine">State.MedicationEnd</a>, <a href="State.MedicationOrder.html" title="class in org.mitre.synthea.engine">State.MedicationOrder</a>, <a href="State.MultiObservation.html" title="class in org.mitre.synthea.engine">State.MultiObservation</a>, <a href="State.Observation.html" title="class in org.mitre.synthea.engine">State.Observation</a>, <a href="State.Physiology.html" title="class in org.mitre.synthea.engine">State.Physiology</a>, <a href="State.Procedure.html" title="class in org.mitre.synthea.engine">State.Procedure</a>, <a href="State.SetAttribute.html" title="class in org.mitre.synthea.engine">State.SetAttribute</a>, <a href="State.Simple.html" title="class in org.mitre.synthea.engine">State.Simple</a>, <a href="State.SupplyList.html" title="class in org.mitre.synthea.engine">State.SupplyList</a>, <a href="State.Symptom.html" title="class in org.mitre.synthea.engine">State.Symptom</a>, <a href="State.Terminal.html" title="class in org.mitre.synthea.engine">State.Terminal</a>, <a href="State.VitalSign.html" title="class in org.mitre.synthea.engine">State.VitalSign</a></code></div>
+</a><code><a href="State.AllergyEnd.html" title="class in org.mitre.synthea.engine">State.AllergyEnd</a>, <a href="State.AllergyOnset.html" title="class in org.mitre.synthea.engine">State.AllergyOnset</a>, <a href="State.CallSubmodule.html" title="class in org.mitre.synthea.engine">State.CallSubmodule</a>, <a href="State.CarePlanEnd.html" title="class in org.mitre.synthea.engine">State.CarePlanEnd</a>, <a href="State.CarePlanStart.html" title="class in org.mitre.synthea.engine">State.CarePlanStart</a>, <a href="State.ConditionEnd.html" title="class in org.mitre.synthea.engine">State.ConditionEnd</a>, <a href="State.ConditionOnset.html" title="class in org.mitre.synthea.engine">State.ConditionOnset</a>, <a href="State.Counter.html" title="class in org.mitre.synthea.engine">State.Counter</a>, <a href="State.Death.html" title="class in org.mitre.synthea.engine">State.Death</a>, <a href="State.Delay.html" title="class in org.mitre.synthea.engine">State.Delay</a>, <a href="State.Delayable.html" title="class in org.mitre.synthea.engine">State.Delayable</a>, <a href="State.Device.html" title="class in org.mitre.synthea.engine">State.Device</a>, <a href="State.DeviceEnd.html" title="class in org.mitre.synthea.engine">State.DeviceEnd</a>, <a href="State.DiagnosticReport.html" title="class in org.mitre.synthea.engine">State.DiagnosticReport</a>, <a href="State.Encounter.html" title="class in org.mitre.synthea.engine">State.Encounter</a>, <a href="State.EncounterEnd.html" title="class in org.mitre.synthea.engine">State.EncounterEnd</a>, <a href="State.Guard.html" title="class in org.mitre.synthea.engine">State.Guard</a>, <a href="State.ImagingStudy.html" title="class in org.mitre.synthea.engine">State.ImagingStudy</a>, <a href="State.Initial.html" title="class in org.mitre.synthea.engine">State.Initial</a>, <a href="State.MedicationEnd.html" title="class in org.mitre.synthea.engine">State.MedicationEnd</a>, <a href="State.MedicationOrder.html" title="class in org.mitre.synthea.engine">State.MedicationOrder</a>, <a href="State.MultiObservation.html" title="class in org.mitre.synthea.engine">State.MultiObservation</a>, <a href="State.Observation.html" title="class in org.mitre.synthea.engine">State.Observation</a>, <a href="State.Physiology.html" title="class in org.mitre.synthea.engine">State.Physiology</a>, <a href="State.Procedure.html" title="class in org.mitre.synthea.engine">State.Procedure</a>, <a href="State.SetAttribute.html" title="class in org.mitre.synthea.engine">State.SetAttribute</a>, <a href="State.Simple.html" title="class in org.mitre.synthea.engine">State.Simple</a>, <a href="State.SupplyList.html" title="class in org.mitre.synthea.engine">State.SupplyList</a>, <a href="State.Symptom.html" title="class in org.mitre.synthea.engine">State.Symptom</a>, <a href="State.Terminal.html" title="class in org.mitre.synthea.engine">State.Terminal</a>, <a href="State.VitalSign.html" title="class in org.mitre.synthea.engine">State.VitalSign</a></code></div>
 </section>
 </li>
 <!-- =========== FIELD SUMMARY =========== -->
@@ -139,6 +141,11 @@ extends <a href="State.html" title="class in org.mitre.synthea.engine">State</a>
 <!--   -->
 </a>
 <h2>Field Summary</h2>
+<div class="inheritedList">
+<h3>Fields inherited from class&nbsp;org.mitre.synthea.engine.<a href="State.Delayable.html" title="class in org.mitre.synthea.engine">State.Delayable</a></h3>
+<a id="fields.inherited.from.class.org.mitre.synthea.engine.State.Delayable">
+<!--   -->
+</a><code><a href="State.Delayable.html#next">next</a></code></div>
 <div class="inheritedList">
 <h3>Fields inherited from class&nbsp;org.mitre.synthea.engine.<a href="State.html" title="class in org.mitre.synthea.engine">State</a></h3>
 <a id="fields.inherited.from.class.org.mitre.synthea.engine.State">
@@ -198,6 +205,12 @@ extends <a href="State.html" title="class in org.mitre.synthea.engine">State</a>
 </td>
 </tr>
 <tr class="rowColor" id="i1">
+<td class="colFirst"><code>long</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#endOfDelay(long,org.mitre.synthea.world.agents.Person)">endOfDelay</a></span>&#8203;(long&nbsp;time,
+<a href="../world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i2">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#process(org.mitre.synthea.world.agents.Person,long)">process</a></span>&#8203;(<a href="../world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
 long&nbsp;time)</code></th>
@@ -264,6 +277,17 @@ long&nbsp;time)</code></th>
 </li>
 <li class="blockList">
 <section class="detail">
+<h3><a id="endOfDelay(long,org.mitre.synthea.world.agents.Person)">endOfDelay</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">long</span>&nbsp;<span class="memberName">endOfDelay</span>&#8203;(<span class="arguments">long&nbsp;time,
+<a href="../world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person)</span></div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="State.Delayable.html#endOfDelay(long,org.mitre.synthea.world.agents.Person)">endOfDelay</a></code>&nbsp;in class&nbsp;<code><a href="State.Delayable.html" title="class in org.mitre.synthea.engine">State.Delayable</a></code></dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="process(org.mitre.synthea.world.agents.Person,long)">process</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">process</span>&#8203;(<span class="arguments"><a href="../world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a>&nbsp;person,
 long&nbsp;time)</span></div>
@@ -272,8 +296,8 @@ long&nbsp;time)</span></div>
  If this State generates a HealthRecord.Entry during processing, then the resulting data
  will reside in the State.entry field.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="State.html#process(org.mitre.synthea.world.agents.Person,long)">process</a></code>&nbsp;in class&nbsp;<code><a href="State.html" title="class in org.mitre.synthea.engine">State</a></code></dd>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="State.Delayable.html#process(org.mitre.synthea.world.agents.Person,long)">process</a></code>&nbsp;in class&nbsp;<code><a href="State.Delayable.html" title="class in org.mitre.synthea.engine">State.Delayable</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>person</code> - : the person being simulated</dd>
 <dd><code>time</code> - : the date within the simulated world</dd>
