@@ -768,6 +768,8 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/world/concepts/HealthRecord.EncounterType.html#code--">code()</a></span> - Method in enum org.mitre.synthea.world.concepts.<a href="org/mitre/synthea/world/concepts/HealthRecord.EncounterType.html" title="enum in org.mitre.synthea.world.concepts">HealthRecord.EncounterType</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/RandomCodeGenerator.html#codeListCache">codeListCache</a></span> - Static variable in class org.mitre.synthea.helpers.<a href="org/mitre/synthea/helpers/RandomCodeGenerator.html" title="class in org.mitre.synthea.helpers">RandomCodeGenerator</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/world/concepts/HealthRecord.Entry.html#codes">codes</a></span> - Variable in class org.mitre.synthea.world.concepts.<a href="org/mitre/synthea/world/concepts/HealthRecord.Entry.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Entry</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/Utilities.html#compare-java.lang.Object-java.lang.Object-java.lang.String-">compare(Object, Object, String)</a></span> - Static method in class org.mitre.synthea.helpers.<a href="org/mitre/synthea/helpers/Utilities.html" title="class in org.mitre.synthea.helpers">Utilities</a></dt>
@@ -1388,7 +1390,7 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/TerminologyClient.html#expand-org.hl7.fhir.r4.model.UriType-org.hl7.fhir.r4.model.IntegerType-org.hl7.fhir.r4.model.IntegerType-">expand(UriType, IntegerType, IntegerType)</a></span> - Method in interface org.mitre.synthea.helpers.<a href="org/mitre/synthea/helpers/TerminologyClient.html" title="interface in org.mitre.synthea.helpers">TerminologyClient</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/RandomCodeGenerator.html#EXPAND_PAGE_SIZE">EXPAND_PAGE_SIZE</a></span> - Static variable in class org.mitre.synthea.helpers.<a href="org/mitre/synthea/helpers/RandomCodeGenerator.html" title="class in org.mitre.synthea.helpers">RandomCodeGenerator</a></dt>
+<dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/RandomCodeGenerator.html#expandBaseUrl">expandBaseUrl</a></span> - Static variable in class org.mitre.synthea.helpers.<a href="org/mitre/synthea/helpers/RandomCodeGenerator.html" title="class in org.mitre.synthea.helpers">RandomCodeGenerator</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/world/concepts/HealthRecord.Device.html#expirationTime">expirationTime</a></span> - Variable in class org.mitre.synthea.world.concepts.<a href="org/mitre/synthea/world/concepts/HealthRecord.Device.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Device</a></dt>
 <dd>&nbsp;</dd>
@@ -1900,7 +1902,7 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/physiology/PreGenerator.html#getClassName--">getClassName()</a></span> - Method in class org.mitre.synthea.helpers.physiology.<a href="org/mitre/synthea/helpers/physiology/PreGenerator.html" title="class in org.mitre.synthea.helpers.physiology">PreGenerator</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/RandomCodeGenerator.html#getCode-java.lang.String-long-">getCode(String, long)</a></span> - Static method in class org.mitre.synthea.helpers.<a href="org/mitre/synthea/helpers/RandomCodeGenerator.html" title="class in org.mitre.synthea.helpers">RandomCodeGenerator</a></dt>
+<dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/RandomCodeGenerator.html#getCode-java.lang.String-long-org.mitre.synthea.world.concepts.HealthRecord.Code-">getCode(String, long, HealthRecord.Code)</a></span> - Static method in class org.mitre.synthea.helpers.<a href="org/mitre/synthea/helpers/RandomCodeGenerator.html" title="class in org.mitre.synthea.helpers">RandomCodeGenerator</a></dt>
 <dd>
 <div class="block">Gets a random code from the expansion of a ValueSet.</div>
 </dd>
@@ -2860,14 +2862,6 @@
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/physiology/IoMapper.html#initialize-java.util.Map-">initialize(Map&lt;String, String&gt;)</a></span> - Method in class org.mitre.synthea.helpers.physiology.<a href="org/mitre/synthea/helpers/physiology/IoMapper.html" title="class in org.mitre.synthea.helpers.physiology">IoMapper</a></dt>
 <dd>
 <div class="block">Initializes the expression processor for each thread if needed.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/RandomCodeGenerator.html#initialize-java.lang.String-">initialize(String)</a></span> - Static method in class org.mitre.synthea.helpers.<a href="org/mitre/synthea/helpers/RandomCodeGenerator.html" title="class in org.mitre.synthea.helpers">RandomCodeGenerator</a></dt>
-<dd>
-<div class="block">Initialize the RandomCodeGenerator with the supplied terminology service URL.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/RandomCodeGenerator.html#initialize-org.mitre.synthea.helpers.TerminologyClient-">initialize(TerminologyClient)</a></span> - Static method in class org.mitre.synthea.helpers.<a href="org/mitre/synthea/helpers/RandomCodeGenerator.html" title="class in org.mitre.synthea.helpers">RandomCodeGenerator</a></dt>
-<dd>
-<div class="block">Initialize the RandomCodeGenerator with the supplied TerminologyClient.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/engine/Generator.GeneratorOptions.html#initialPopulationSnapshotPath">initialPopulationSnapshotPath</a></span> - Variable in class org.mitre.synthea.engine.<a href="org/mitre/synthea/engine/Generator.GeneratorOptions.html" title="class in org.mitre.synthea.engine">Generator.GeneratorOptions</a></dt>
 <dd>
@@ -4370,8 +4364,8 @@
 </dd>
 <dt><a href="org/mitre/synthea/helpers/RandomCodeGenerator.html" title="class in org.mitre.synthea.helpers"><span class="typeNameLink">RandomCodeGenerator</span></a> - Class in <a href="org/mitre/synthea/helpers/package-summary.html">org.mitre.synthea.helpers</a></dt>
 <dd>
-<div class="block">Generates random codes based upon ValueSet URIs, with the help of a FHIR terminology service
- API.</div>
+<div class="block">Generates random codes based upon ValueSet URIs, with the help of a FHIR
+ terminology service API.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/RandomCodeGenerator.html#RandomCodeGenerator--">RandomCodeGenerator()</a></span> - Constructor for class org.mitre.synthea.helpers.<a href="org/mitre/synthea/helpers/RandomCodeGenerator.html" title="class in org.mitre.synthea.helpers">RandomCodeGenerator</a></dt>
 <dd>&nbsp;</dd>
@@ -4513,10 +4507,6 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/world/concepts/HealthRecord.Encounter.html#reports">reports</a></span> - Variable in class org.mitre.synthea.world.concepts.<a href="org/mitre/synthea/world/concepts/HealthRecord.Encounter.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Encounter</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/RandomCodeGenerator.html#reset--">reset()</a></span> - Static method in class org.mitre.synthea.helpers.<a href="org/mitre/synthea/helpers/RandomCodeGenerator.html" title="class in org.mitre.synthea.helpers">RandomCodeGenerator</a></dt>
-<dd>
-<div class="block">Clear the terminology service configuration.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/world/agents/Person.html#resetDeductible-long-">resetDeductible(long)</a></span> - Method in class org.mitre.synthea.world.agents.<a href="org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a></dt>
 <dd>
 <div class="block">Resets a person's deductible.</div>
@@ -4535,6 +4525,8 @@
 <dd>
 <div class="block">Generates random codes in any coded fields that have specified a ValueSet URI.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/RandomCodeGenerator.html#restTemplate">restTemplate</a></span> - Static variable in class org.mitre.synthea.helpers.<a href="org/mitre/synthea/helpers/RandomCodeGenerator.html" title="class in org.mitre.synthea.helpers">RandomCodeGenerator</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/world/concepts/PediatricGrowthTrajectory.html#reverseWeightPercentile-java.lang.String-double-">reverseWeightPercentile(String, double)</a></span> - Method in class org.mitre.synthea.world.concepts.<a href="org/mitre/synthea/world/concepts/PediatricGrowthTrajectory.html" title="class in org.mitre.synthea.world.concepts">PediatricGrowthTrajectory</a></dt>
 <dd>
 <div class="block">Given the sex, BMI and height percentile at age 2, calculate the correct weight percentile.</div>
@@ -4588,6 +4580,8 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/world/agents/Person.html#seed">seed</a></span> - Variable in class org.mitre.synthea.world.agents.<a href="org/mitre/synthea/world/agents/Person.html" title="class in org.mitre.synthea.world.agents">Person</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/RandomCodeGenerator.html#selectedCodes">selectedCodes</a></span> - Static variable in class org.mitre.synthea.helpers.<a href="org/mitre/synthea/helpers/RandomCodeGenerator.html" title="class in org.mitre.synthea.helpers">RandomCodeGenerator</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/world/concepts/HealthRecord.Device.html#serialNumber">serialNumber</a></span> - Variable in class org.mitre.synthea.world.concepts.<a href="org/mitre/synthea/world/concepts/HealthRecord.Device.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Device</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/engine/Components.SampledData.html#series">series</a></span> - Variable in class org.mitre.synthea.engine.<a href="org/mitre/synthea/engine/Components.SampledData.html" title="class in org.mitre.synthea.engine">Components.SampledData</a></dt>
@@ -4621,6 +4615,8 @@
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/ChartRenderer.ChartConfig.html#setAxisLabelY-java.lang.String-">setAxisLabelY(String)</a></span> - Method in class org.mitre.synthea.helpers.<a href="org/mitre/synthea/helpers/ChartRenderer.ChartConfig.html" title="class in org.mitre.synthea.helpers">ChartRenderer.ChartConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/ChartRenderer.MultiTableChartConfig.html#setAxisParamX-java.lang.String-">setAxisParamX(String)</a></span> - Method in class org.mitre.synthea.helpers.<a href="org/mitre/synthea/helpers/ChartRenderer.MultiTableChartConfig.html" title="class in org.mitre.synthea.helpers">ChartRenderer.MultiTableChartConfig</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/mitre/synthea/helpers/RandomCodeGenerator.html#setBaseUrl-java.lang.String-">setBaseUrl(String)</a></span> - Static method in class org.mitre.synthea.helpers.<a href="org/mitre/synthea/helpers/RandomCodeGenerator.html" title="class in org.mitre.synthea.helpers">RandomCodeGenerator</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/mitre/synthea/world/concepts/BirthStatistics.html#setBirthStatistics-org.mitre.synthea.world.agents.Person-long-">setBirthStatistics(Person, long)</a></span> - Static method in class org.mitre.synthea.world.concepts.<a href="org/mitre/synthea/world/concepts/BirthStatistics.html" title="class in org.mitre.synthea.world.concepts">BirthStatistics</a></dt>
 <dd>

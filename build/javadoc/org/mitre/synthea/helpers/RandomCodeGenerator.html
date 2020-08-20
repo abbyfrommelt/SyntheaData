@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9,"i2":9,"i3":9};
+var methods = {"i0":9,"i1":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -109,9 +109,10 @@ var activeTableTab = "activeTableTab";
 <br>
 <pre>public abstract class <span class="typeNameLabel">RandomCodeGenerator</span>
 extends java.lang.Object</pre>
-<div class="block">Generates random codes based upon ValueSet URIs, with the help of a FHIR terminology service
- API.
+<div class="block">Generates random codes based upon ValueSet URIs, with the help of a FHIR
+ terminology service API.
 
+ 
  <p>The URL for the terminology service is configured using the
  <code>generate.terminology_service_url</code> property.</div>
 </li>
@@ -133,8 +134,20 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Field and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>static int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/helpers/RandomCodeGenerator.html#EXPAND_PAGE_SIZE">EXPAND_PAGE_SIZE</a></span></code>&nbsp;</td>
+<td class="colFirst"><code>static java.util.Map&lt;java.lang.String,java.util.List&lt;java.lang.Object&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/helpers/RandomCodeGenerator.html#codeListCache">codeListCache</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/helpers/RandomCodeGenerator.html#expandBaseUrl">expandBaseUrl</a></span></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static org.springframework.web.client.RestTemplate</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/helpers/RandomCodeGenerator.html#restTemplate">restTemplate</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static java.util.List&lt;<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Code.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Code</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/helpers/RandomCodeGenerator.html#selectedCodes">selectedCodes</a></span></code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -170,28 +183,15 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>static <a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Code.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Code</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/helpers/RandomCodeGenerator.html#getCode-java.lang.String-long-">getCode</a></span>(java.lang.String&nbsp;valueSetUri,
-       long&nbsp;seed)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/helpers/RandomCodeGenerator.html#getCode-java.lang.String-long-org.mitre.synthea.world.concepts.HealthRecord.Code-">getCode</a></span>(java.lang.String&nbsp;valueSetUri,
+       long&nbsp;seed,
+       <a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Code.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Code</a>&nbsp;code)</code>
 <div class="block">Gets a random code from the expansion of a ValueSet.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/helpers/RandomCodeGenerator.html#initialize-java.lang.String-">initialize</a></span>(java.lang.String&nbsp;terminologyServiceUrl)</code>
-<div class="block">Initialize the RandomCodeGenerator with the supplied terminology service URL.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/helpers/RandomCodeGenerator.html#initialize-org.mitre.synthea.helpers.TerminologyClient-">initialize</a></span>(<a href="../../../../org/mitre/synthea/helpers/TerminologyClient.html" title="interface in org.mitre.synthea.helpers">TerminologyClient</a>&nbsp;terminologyClient)</code>
-<div class="block">Initialize the RandomCodeGenerator with the supplied TerminologyClient.</div>
-</td>
-</tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/helpers/RandomCodeGenerator.html#reset--">reset</a></span>()</code>
-<div class="block">Clear the terminology service configuration.</div>
-</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/mitre/synthea/helpers/RandomCodeGenerator.html#setBaseUrl-java.lang.String-">setBaseUrl</a></span>(java.lang.String&nbsp;url)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -215,17 +215,40 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Field Detail</h3>
-<a name="EXPAND_PAGE_SIZE">
+<a name="expandBaseUrl">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>expandBaseUrl</h4>
+<pre>public static&nbsp;java.lang.String expandBaseUrl</pre>
+</li>
+</ul>
+<a name="codeListCache">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>codeListCache</h4>
+<pre>public static&nbsp;java.util.Map&lt;java.lang.String,java.util.List&lt;java.lang.Object&gt;&gt; codeListCache</pre>
+</li>
+</ul>
+<a name="selectedCodes">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>selectedCodes</h4>
+<pre>public static&nbsp;java.util.List&lt;<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Code.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Code</a>&gt; selectedCodes</pre>
+</li>
+</ul>
+<a name="restTemplate">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>EXPAND_PAGE_SIZE</h4>
-<pre>public static final&nbsp;int EXPAND_PAGE_SIZE</pre>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../constant-values.html#org.mitre.synthea.helpers.RandomCodeGenerator.EXPAND_PAGE_SIZE">Constant Field Values</a></dd>
-</dl>
+<h4>restTemplate</h4>
+<pre>public static&nbsp;org.springframework.web.client.RestTemplate restTemplate</pre>
 </li>
 </ul>
 </li>
@@ -253,52 +276,15 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="initialize-java.lang.String-">
+<a name="getCode-java.lang.String-long-org.mitre.synthea.world.concepts.HealthRecord.Code-">
 <!--   -->
 </a>
 <ul class="blockList">
-<li class="blockList">
-<h4>initialize</h4>
-<pre>public static&nbsp;void&nbsp;initialize(java.lang.String&nbsp;terminologyServiceUrl)</pre>
-<div class="block">Initialize the RandomCodeGenerator with the supplied terminology service URL.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>terminologyServiceUrl</code> - the URL of the FHIR terminology service to be used</dd>
-</dl>
-</li>
-</ul>
-<a name="initialize-org.mitre.synthea.helpers.TerminologyClient-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>initialize</h4>
-<pre>public static&nbsp;void&nbsp;initialize(<a href="../../../../org/mitre/synthea/helpers/TerminologyClient.html" title="interface in org.mitre.synthea.helpers">TerminologyClient</a>&nbsp;terminologyClient)</pre>
-<div class="block">Initialize the RandomCodeGenerator with the supplied TerminologyClient.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>terminologyClient</code> - the TerminologyClient to be used</dd>
-</dl>
-</li>
-</ul>
-<a name="reset--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>reset</h4>
-<pre>public static&nbsp;void&nbsp;reset()</pre>
-<div class="block">Clear the terminology service configuration.</div>
-</li>
-</ul>
-<a name="getCode-java.lang.String-long-">
-<!--   -->
-</a>
-<ul class="blockListLast">
 <li class="blockList">
 <h4>getCode</h4>
 <pre>public static&nbsp;<a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Code.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Code</a>&nbsp;getCode(java.lang.String&nbsp;valueSetUri,
-                                        long&nbsp;seed)</pre>
+                                        long&nbsp;seed,
+                                        <a href="../../../../org/mitre/synthea/world/concepts/HealthRecord.Code.html" title="class in org.mitre.synthea.world.concepts">HealthRecord.Code</a>&nbsp;code)</pre>
 <div class="block">Gets a random code from the expansion of a ValueSet.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -307,6 +293,15 @@ extends java.lang.Object</pre>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the randomly selected Code</dd>
 </dl>
+</li>
+</ul>
+<a name="setBaseUrl-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>setBaseUrl</h4>
+<pre>public static&nbsp;void&nbsp;setBaseUrl(java.lang.String&nbsp;url)</pre>
 </li>
 </ul>
 </li>
